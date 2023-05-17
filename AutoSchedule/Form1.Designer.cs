@@ -46,13 +46,13 @@ namespace AutoSchedule
             // 
             this.flpDays.Location = new System.Drawing.Point(32, 123);
             this.flpDays.Name = "flpDays";
-            this.flpDays.Size = new System.Drawing.Size(1059, 632);
+            this.flpDays.Size = new System.Drawing.Size(1059, 761);
             this.flpDays.TabIndex = 0;
             // 
             // btnNextMonth
             // 
             this.btnNextMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNextMonth.Location = new System.Drawing.Point(764, 24);
+            this.btnNextMonth.Location = new System.Drawing.Point(689, 28);
             this.btnNextMonth.Name = "btnNextMonth";
             this.btnNextMonth.Size = new System.Drawing.Size(42, 31);
             this.btnNextMonth.TabIndex = 1;
@@ -63,7 +63,7 @@ namespace AutoSchedule
             // btnPrevMonth
             // 
             this.btnPrevMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrevMonth.Location = new System.Drawing.Point(340, 24);
+            this.btnPrevMonth.Location = new System.Drawing.Point(423, 28);
             this.btnPrevMonth.Name = "btnPrevMonth";
             this.btnPrevMonth.Size = new System.Drawing.Size(42, 31);
             this.btnPrevMonth.TabIndex = 2;
@@ -146,9 +146,9 @@ namespace AutoSchedule
             // lblMonthYear
             // 
             this.lblMonthYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMonthYear.Location = new System.Drawing.Point(397, 29);
+            this.lblMonthYear.Location = new System.Drawing.Point(471, 29);
             this.lblMonthYear.Name = "lblMonthYear";
-            this.lblMonthYear.Size = new System.Drawing.Size(359, 25);
+            this.lblMonthYear.Size = new System.Drawing.Size(212, 25);
             this.lblMonthYear.TabIndex = 10;
             this.lblMonthYear.Text = "MONTH YEAR";
             this.lblMonthYear.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -157,7 +157,7 @@ namespace AutoSchedule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1132, 856);
+            this.ClientSize = new System.Drawing.Size(1132, 1033);
             this.Controls.Add(this.lblMonthYear);
             this.Controls.Add(this.lblSaturday);
             this.Controls.Add(this.lblFriday);

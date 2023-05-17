@@ -53,6 +53,13 @@ namespace AutoSchedule
                 UserControlDay ucDay = new UserControlDay();
                 ucDay.DisplayDate(i);
                 flpDays.Controls.Add(ucDay);
+
+                //Check if the day user control is the current date's
+                if (i == DateTime.Now.Day && month == DateTime.Now.Month && year == DateTime.Now.Year)
+                {
+                    //Highlight box for the current date
+                    ucDay.BackColor = Color.AntiqueWhite;
+                }
             }
         }
 

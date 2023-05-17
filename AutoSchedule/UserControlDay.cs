@@ -26,5 +26,11 @@ namespace AutoSchedule
         {
             lblDayNum.Text = Convert.ToString(dayNum);
         }
+
+        private void UserControlDay_Click(object sender, EventArgs e)
+        {
+            EventForm eventForm = new EventForm();
+            eventForm.Show();
+        }
     }
 }
