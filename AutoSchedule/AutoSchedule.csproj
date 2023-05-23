@@ -72,6 +72,12 @@
     <Compile Include="UserControlDay.Designer.cs">
       <DependentUpon>UserControlDay.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControlEvent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControlEvent.Designer.cs">
+      <DependentUpon>UserControlEvent.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="EventForm.resx">
       <DependentUpon>EventForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -92,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlDay.resx">
       <DependentUpon>UserControlDay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControlEvent.resx">
+      <DependentUpon>UserControlEvent.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -30,6 +30,7 @@ namespace AutoSchedule
         private void InitializeComponent()
         {
             this.lblDayNum = new System.Windows.Forms.Label();
+            this.flpEvents = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // lblDayNum
@@ -41,11 +42,19 @@ namespace AutoSchedule
             this.lblDayNum.TabIndex = 0;
             this.lblDayNum.Text = "00";
             // 
+            // flpEvents
+            // 
+            this.flpEvents.Location = new System.Drawing.Point(0, 20);
+            this.flpEvents.Name = "flpEvents";
+            this.flpEvents.Size = new System.Drawing.Size(145, 100);
+            this.flpEvents.TabIndex = 1;
+            // 
             // UserControlDay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.flpEvents);
             this.Controls.Add(this.lblDayNum);
             this.Name = "UserControlDay";
             this.Size = new System.Drawing.Size(145, 120);
@@ -59,5 +68,6 @@ namespace AutoSchedule
         #endregion
 
         private System.Windows.Forms.Label lblDayNum;
+        private System.Windows.Forms.FlowLayoutPanel flpEvents;
     }
 }

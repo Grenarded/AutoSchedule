@@ -12,25 +12,43 @@ namespace AutoSchedule
 {
     public partial class UserControlDay : UserControl
     {
-        public UserControlDay()
+        private int dayNum;
+
+        public UserControlDay(int dayNum)
         {
+            this.dayNum = dayNum;
             InitializeComponent();
         }
 
         private void UserControlDay_Load(object sender, EventArgs e)
         {
-
+            //TODO: add relevant events for each day 
+            for (int i = 0; i < 4; i++)
+            {
+                UserControlEvent ucEvent = new UserControlEvent();
+                flpEvents.Controls.Add(ucEvent);
+            }
         }
 
-        public void DisplayDate(int dayNum)
+        public void DisplayDate()
         {
             lblDayNum.Text = Convert.ToString(dayNum);
         }
 
         private void UserControlDay_Click(object sender, EventArgs e)
         {
-            EventForm eventForm = new EventForm();
+            EventForm eventForm = new EventForm(Form1.month + "\\" + dayNum + "\\" + Form1.year);
             eventForm.Show();
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel13_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

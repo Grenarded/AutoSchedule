@@ -7,24 +7,72 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace AutoSchedule
 {
     public partial class EventForm : Form
     {
-        public EventForm()
+        private string date;
+
+        //File IO
+        const string EVENT_FILE = "Events.txt";
+
+        static StreamWriter outFile;
+
+        public EventForm(string date)
         {
             InitializeComponent();
+            this.date = date;
         }
 
         private void EventForm_Load(object sender, EventArgs e)
         {
-            
+            txtDate.Text = date;
         }
 
+        //TODO: only make save button clickable after event input > 0
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //WRITE TO FILE
+            //TODO: WRITE TO FILE
+            SaveEvent();
+            Close();
+        }
+
+        private void SaveEvent()
+        {
+            //TODO: sort events by date in the save file?
+            try
+            {
+                //Create file (or overwrite if it already exists)
+                outFile = File.CreateText(EVENT_FILE);
+
+                outFile.WriteLine(date + "," + "");
+            }
+            catch
+            {
+                //TODO: window pop up?
+            }
+            finally
+            {
+                //Check if file was previously accessed
+                if (outFile != null)
+                {
+                    outFile.Close();
+                }
+            }
+        }
+
+        private void txtEvent_TextChanged(object sender, EventArgs e)
+        {
+            if (txtEvent.TextLength > 0)
+            {
+                btnSave.Enabled = true;
+            }
+            else
+            {
+                btnSave.Enabled = false;
+            }
         }
     }
 }

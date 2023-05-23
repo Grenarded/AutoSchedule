@@ -14,8 +14,8 @@ namespace AutoSchedule
     public partial class Form1 : Form
     {
         const int MONTHS_IN_YEAR = 12;
-        int year;
-        int month;
+        public static int year { get; private set; } //IS THIS OK??
+        public static int month { get; private set; }
 
         public Form1()
         {
@@ -40,7 +40,7 @@ namespace AutoSchedule
             //Get num of days in the month 
             int numDays = DateTime.DaysInMonth(year, month);
 
-            int daysOfWeek = Convert.ToInt32(startofMonth.DayOfWeek.ToString("d")) + 1;
+            int daysOfWeek = Convert.ToInt32(startofMonth.DayOfWeek.ToString("d"));
 
             for (int i = 0; i < daysOfWeek; i++)
             {
@@ -50,8 +50,8 @@ namespace AutoSchedule
 
             for (int i = 1; i <= numDays; i++)
             {
-                UserControlDay ucDay = new UserControlDay();
-                ucDay.DisplayDate(i);
+                UserControlDay ucDay = new UserControlDay(i);
+                ucDay.DisplayDate();
                 flpDays.Controls.Add(ucDay);
 
                 //Check if the day user control is the current date's

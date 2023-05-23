@@ -68,9 +68,11 @@ namespace AutoSchedule
             this.txtEvent.Name = "txtEvent";
             this.txtEvent.Size = new System.Drawing.Size(190, 20);
             this.txtEvent.TabIndex = 2;
+            this.txtEvent.TextChanged += new System.EventHandler(this.txtEvent_TextChanged);
             // 
             // btnSave
             // 
+            this.btnSave.Enabled = false;
             this.btnSave.Location = new System.Drawing.Point(183, 174);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
