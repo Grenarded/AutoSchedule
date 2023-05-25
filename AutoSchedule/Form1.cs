@@ -38,39 +38,11 @@ namespace AutoSchedule
 
         private void DisplayDates()
         {
-            //string monthName = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
+            flpDays.Controls.Clear();
+
+            flpDays.Controls.AddRange(year.GetMonth(monthNum).GetControls()); //TODO: doesn't preload as expected, unless already been loaded before
 
             lblMonthYear.Text = year.GetMonth(monthNum).GetMonthName() + " " + yearNum;
-
-            flpDays = year.GetMonth(monthNum).DisplayDays();
-
-            //Get first day of the month
-            //DateTime startofMonth = new DateTime(year, month, 1);
-
-            ////Get num of days in the month 
-            //int numDays = DateTime.DaysInMonth(year, month);
-
-            //int daysOfWeek = Convert.ToInt32(startofMonth.DayOfWeek.ToString("d"));
-
-            //for (int i = 0; i < daysOfWeek; i++)
-            //{
-            //    UserControlBlank ucBlank = new UserControlBlank();
-            //    flpDays.Controls.Add(ucBlank);
-            //}
-
-            //for (int i = 1; i <= numDays; i++)
-            //{
-            //    UserControlDay ucDay = new UserControlDay(i);
-            //    ucDay.DisplayDate();
-            //    flpDays.Controls.Add(ucDay);
-
-            //    //Check if the day user control is the current date's
-            //    if (i == DateTime.Now.Day && month == DateTime.Now.Month && year == DateTime.Now.Year)
-            //    {
-            //        //Highlight box for the current date
-            //        ucDay.BackColor = Color.AntiqueWhite;
-            //    }
-            //}
         }
 
         private void btnNextMonth_Click(object sender, EventArgs e)

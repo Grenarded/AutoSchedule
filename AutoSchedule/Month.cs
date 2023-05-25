@@ -11,29 +11,22 @@ namespace AutoSchedule
 {
     class Month
     {
-        private UserControlDay[] days;
+        private UserControlDay[] days; //necessary w/ the Controls?
         private int monthNum;
         private int year;
         private string monthName;
 
-        FlowLayoutPanel flpDays;
+        private Control[] controls;
 
         public Month(int monthNum, int year)
         {
             this.monthNum = monthNum;
             this.year = year;
             AssignMonthName();
+
             days = new UserControlDay[DateTime.DaysInMonth(year, monthNum)];
 
-            //Create flow layout panel
-            flpDays = new FlowLayoutPanel();
-
-            flpDays.Location = new Point(32, 123);
-            flpDays.Name = "flpDays";
-            flpDays.Size = new Size(1059, 761);
-            flpDays.TabIndex = 0;
-
-            LoadDays();
+            LoadControls();
         }
 
         public string GetMonthName()
@@ -46,7 +39,7 @@ namespace AutoSchedule
             monthName = DateTimeFormatInfo.CurrentInfo.GetMonthName(monthNum);
         }
 
-        private void LoadDays()
+        private void LoadControls()
         {
             //Get first day of the month
             DateTime startofMonth = new DateTime(year, monthNum, 1);
@@ -56,19 +49,21 @@ namespace AutoSchedule
 
             int daysOfWeek = Convert.ToInt32(startofMonth.DayOfWeek.ToString("d"));
 
+            controls = new Control[daysOfWeek + numDays];
+
             for (int i = 0; i < daysOfWeek; i++)
             {
                 UserControlBlank ucBlank = new UserControlBlank();
-                flpDays.Controls.Add(ucBlank);
+                controls[i] = ucBlank;
             }
 
             for (int i = 1; i <= numDays; i++)
             {
                 UserControlDay ucDay = new UserControlDay(i);
                 ucDay.DisplayDate();
-                flpDays.Controls.Add(ucDay);
+                controls[i + daysOfWeek - 1] = ucDay;
 
-                //Check if the day user control is the current date's
+                ////Check if the day user control is the current date's
                 if (i == DateTime.Now.Day && monthNum == DateTime.Now.Month && year == DateTime.Now.Year)
                 {
                     //Highlight box for the current date
@@ -77,9 +72,9 @@ namespace AutoSchedule
             }
         }
 
-        public FlowLayoutPanel DisplayDays()
+        public Control[] GetControls()
         {
-            return flpDays;
+            return controls;
         }
     }
 }
