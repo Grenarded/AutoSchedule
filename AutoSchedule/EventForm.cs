@@ -16,7 +16,7 @@ namespace AutoSchedule
         private string date;
 
         //File IO
-        const string EVENT_FILE = "Events.txt";
+        //const string EVENT_FILE = "Events.txt";
 
         static StreamWriter outFile;
 
@@ -45,9 +45,9 @@ namespace AutoSchedule
             try
             {
                 //Create file (or overwrite if it already exists)
-                outFile = File.CreateText(EVENT_FILE);
+                outFile = File.CreateText(Form1.EVENT_FILE);
 
-                outFile.WriteLine(date + "," + "");
+                outFile.WriteLine(date + "," + txtEvent.Text);
             }
             catch
             {

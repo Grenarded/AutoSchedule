@@ -7,12 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace AutoSchedule
 {
     public partial class UserControlDay : UserControl
     {
         private int dayNum;
+
+        private List<UserControlEvent> events;
 
         public UserControlDay(int dayNum)
         {
@@ -37,7 +40,17 @@ namespace AutoSchedule
 
         private void UserControlDay_Click(object sender, EventArgs e)
         {
-            EventForm eventForm = new EventForm(Form1.month + "\\" + dayNum + "\\" + Form1.year);
+            ShowEventForm();
+        }
+
+        private void flpEvents_Click(object sender, EventArgs e)
+        {
+            ShowEventForm();
+        }
+
+        private void ShowEventForm()
+        {
+            EventForm eventForm = new EventForm(Form1.monthNum + "\\" + dayNum + "\\" + Form1.yearNum);
             eventForm.Show();
         }
 

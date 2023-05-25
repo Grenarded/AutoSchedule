@@ -48,6 +48,7 @@ namespace AutoSchedule
             this.flpEvents.Name = "flpEvents";
             this.flpEvents.Size = new System.Drawing.Size(145, 100);
             this.flpEvents.TabIndex = 1;
+            this.flpEvents.Click += new System.EventHandler(this.flpEvents_Click);
             // 
             // UserControlDay
             // 

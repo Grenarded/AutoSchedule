@@ -58,6 +58,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Month.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserControlBlank.cs">
@@ -78,6 +79,7 @@
     <Compile Include="UserControlEvent.Designer.cs">
       <DependentUpon>UserControlEvent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Year.cs" />
     <EmbeddedResource Include="EventForm.resx">
       <DependentUpon>EventForm.cs</DependentUpon>
     </EmbeddedResource>
