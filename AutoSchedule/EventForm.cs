@@ -13,14 +13,12 @@ namespace AutoSchedule
 {
     public partial class EventForm : Form
     {
-        private string date;
+        private DateTime date;
 
         //File IO
-        //const string EVENT_FILE = "Events.txt";
-
         static StreamWriter outFile;
 
-        public EventForm(string date)
+        public EventForm(DateTime date)
         {
             InitializeComponent();
             this.date = date;
@@ -28,7 +26,7 @@ namespace AutoSchedule
 
         private void EventForm_Load(object sender, EventArgs e)
         {
-            txtDate.Text = date;
+            datePicker.Value = date;
         }
 
         //TODO: only make save button clickable after event input > 0

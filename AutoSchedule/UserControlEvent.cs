@@ -12,8 +12,11 @@ namespace AutoSchedule
 {
     public partial class UserControlEvent : UserControl
     {
+        DateTime dateTime;
+        //public UserControlEvent(DateTime dateTime)
         public UserControlEvent()
         {
+            //this.dateTime = dateTime;
             InitializeComponent();
         }
     }

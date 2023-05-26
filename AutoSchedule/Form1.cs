@@ -8,14 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace AutoSchedule
 {
     public partial class Form1 : Form
     {
+        //File IO
         public const string EVENT_FILE = "Events.txt";
 
-        //const int MONTHS_IN_YEAR = 12;
+        StreamReader inFile;
+
+        List<UserControlEvent> allEvents;
+
         public static int yearNum { get; private set; }
         public static int monthNum { get; private set; }
 
@@ -34,6 +39,37 @@ namespace AutoSchedule
             year = new Year(yearNum);
 
             DisplayDates();
+        }
+
+        private void ReadEvents()
+        {
+            try
+            {
+                string line;
+                string[] data;
+
+                inFile = File.OpenText(EVENT_FILE);
+
+                while (!inFile.EndOfStream)
+                {
+                    line = inFile.ReadLine();
+                    data = line.Split(',');
+
+
+                }
+            }
+            catch
+            {
+                //TODO: popup?
+            }
+            finally
+            {
+                //Check if file was previously accessed
+                if (inFile != null)
+                {
+                    inFile.Close();
+                }
+            }
         }
 
         private void DisplayDates()

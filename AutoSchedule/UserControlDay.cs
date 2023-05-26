@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
 
 namespace AutoSchedule
 {
@@ -21,12 +20,17 @@ namespace AutoSchedule
         {
             this.dayNum = dayNum;
             InitializeComponent();
+            AddEvents();
         }
 
         private void UserControlDay_Load(object sender, EventArgs e)
         {
+        }
+
+        private void AddEvents()
+        {
             //TODO: add relevant events for each day 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 1; i++)
             {
                 UserControlEvent ucEvent = new UserControlEvent();
                 flpEvents.Controls.Add(ucEvent);
@@ -50,8 +54,10 @@ namespace AutoSchedule
 
         private void ShowEventForm()
         {
-            EventForm eventForm = new EventForm(Form1.monthNum + "\\" + dayNum + "\\" + Form1.yearNum);
-            eventForm.Show();
+            //new DateTime()
+            //EventForm eventForm = new EventForm(Form1.monthNum + "\\" + dayNum + "\\" + Form1.yearNum);
+            EventForm eventForm = new EventForm(new DateTime(Form1.yearNum, Form1.monthNum, dayNum));
+            eventForm.ShowDialog();
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)

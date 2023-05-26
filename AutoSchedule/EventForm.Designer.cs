@@ -29,25 +29,19 @@ namespace AutoSchedule
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtDate = new System.Windows.Forms.TextBox();
             this.lblDate = new System.Windows.Forms.Label();
             this.lblEvent = new System.Windows.Forms.Label();
             this.txtEvent = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
+            this.timePicker = new System.Windows.Forms.DateTimePicker();
+            this.datePicker = new System.Windows.Forms.DateTimePicker();
+            this.lblTime = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // txtDate
-            // 
-            this.txtDate.Enabled = false;
-            this.txtDate.Location = new System.Drawing.Point(133, 72);
-            this.txtDate.Name = "txtDate";
-            this.txtDate.Size = new System.Drawing.Size(190, 20);
-            this.txtDate.TabIndex = 0;
             // 
             // lblDate
             // 
             this.lblDate.AutoSize = true;
-            this.lblDate.Location = new System.Drawing.Point(133, 56);
+            this.lblDate.Location = new System.Drawing.Point(116, 61);
             this.lblDate.Name = "lblDate";
             this.lblDate.Size = new System.Drawing.Size(30, 13);
             this.lblDate.TabIndex = 1;
@@ -56,7 +50,7 @@ namespace AutoSchedule
             // lblEvent
             // 
             this.lblEvent.AutoSize = true;
-            this.lblEvent.Location = new System.Drawing.Point(133, 111);
+            this.lblEvent.Location = new System.Drawing.Point(131, 133);
             this.lblEvent.Name = "lblEvent";
             this.lblEvent.Size = new System.Drawing.Size(35, 13);
             this.lblEvent.TabIndex = 3;
@@ -64,7 +58,7 @@ namespace AutoSchedule
             // 
             // txtEvent
             // 
-            this.txtEvent.Location = new System.Drawing.Point(133, 127);
+            this.txtEvent.Location = new System.Drawing.Point(131, 149);
             this.txtEvent.Name = "txtEvent";
             this.txtEvent.Size = new System.Drawing.Size(190, 20);
             this.txtEvent.TabIndex = 2;
@@ -73,7 +67,7 @@ namespace AutoSchedule
             // btnSave
             // 
             this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(183, 174);
+            this.btnSave.Location = new System.Drawing.Point(181, 196);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 4;
@@ -81,16 +75,44 @@ namespace AutoSchedule
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // timePicker
+            // 
+            this.timePicker.CustomFormat = "hh:mm tt";
+            this.timePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.timePicker.Location = new System.Drawing.Point(265, 77);
+            this.timePicker.Name = "timePicker";
+            this.timePicker.ShowUpDown = true;
+            this.timePicker.Size = new System.Drawing.Size(73, 20);
+            this.timePicker.TabIndex = 5;
+            // 
+            // datePicker
+            // 
+            this.datePicker.Location = new System.Drawing.Point(117, 77);
+            this.datePicker.Name = "datePicker";
+            this.datePicker.Size = new System.Drawing.Size(142, 20);
+            this.datePicker.TabIndex = 6;
+            // 
+            // lblTime
+            // 
+            this.lblTime.AutoSize = true;
+            this.lblTime.Location = new System.Drawing.Point(265, 61);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(30, 13);
+            this.lblTime.TabIndex = 7;
+            this.lblTime.Text = "Time";
+            // 
             // EventForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(475, 318);
+            this.Controls.Add(this.lblTime);
+            this.Controls.Add(this.datePicker);
+            this.Controls.Add(this.timePicker);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblEvent);
             this.Controls.Add(this.txtEvent);
             this.Controls.Add(this.lblDate);
-            this.Controls.Add(this.txtDate);
             this.Name = "EventForm";
             this.Text = "EventForm";
             this.Load += new System.EventHandler(this.EventForm_Load);
@@ -100,11 +122,12 @@ namespace AutoSchedule
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox txtDate;
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.Label lblEvent;
         private System.Windows.Forms.TextBox txtEvent;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.DateTimePicker timePicker;
+        private System.Windows.Forms.DateTimePicker datePicker;
+        private System.Windows.Forms.Label lblTime;
     }
 }
