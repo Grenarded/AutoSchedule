@@ -54,8 +54,6 @@ namespace AutoSchedule
 
         private void ShowEventForm()
         {
-            //new DateTime()
-            //EventForm eventForm = new EventForm(Form1.monthNum + "\\" + dayNum + "\\" + Form1.yearNum);
             EventForm eventForm = new EventForm(new DateTime(Form1.yearNum, Form1.monthNum, dayNum));
             eventForm.ShowDialog();
         }

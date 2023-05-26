@@ -84,6 +84,7 @@ namespace AutoSchedule
             this.timePicker.ShowUpDown = true;
             this.timePicker.Size = new System.Drawing.Size(73, 20);
             this.timePicker.TabIndex = 5;
+            this.timePicker.ValueChanged += new System.EventHandler(this.timePicker_ValueChanged);
             // 
             // datePicker
             // 
@@ -91,6 +92,7 @@ namespace AutoSchedule
             this.datePicker.Name = "datePicker";
             this.datePicker.Size = new System.Drawing.Size(142, 20);
             this.datePicker.TabIndex = 6;
+            this.datePicker.ValueChanged += new System.EventHandler(this.datePicker_ValueChanged);
             // 
             // lblTime
             // 
