@@ -30,7 +30,7 @@ namespace AutoSchedule
         private void AddEvents()
         {
             //TODO: add relevant events for each day 
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 0; i++)
             {
                 UserControlEvent ucEvent = new UserControlEvent();
                 flpEvents.Controls.Add(ucEvent);

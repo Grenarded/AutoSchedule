@@ -14,7 +14,8 @@ namespace AutoSchedule
     public partial class EventForm : Form
     {
         private DateTime date;
-        private TimeSpan time;
+        private TimeSpan timeStart;
+        private TimeSpan timeEnd; //TODO: if end time is before start time
 
         //File IO
         static StreamWriter outFile;
@@ -23,7 +24,9 @@ namespace AutoSchedule
         {
             InitializeComponent();
             this.date = date.Date;
-            time = timePicker.Value.TimeOfDay;
+            timeStart = timePickerStart.Value.TimeOfDay;
+            timePickerEnd.Value = timePickerStart.Value.AddHours(1);
+            timeEnd = timePickerEnd.Value.TimeOfDay;
         }
 
         private void EventForm_Load(object sender, EventArgs e)
@@ -36,22 +39,44 @@ namespace AutoSchedule
             this.date = date;
         }
 
-        private void SetTime(TimeSpan time)
+        private void SetTime(TimeSpan time, bool isTimeStart)
         {
-            this.time = time;
+            if (IsEndTimeValid())
+            {
+                lblEndTimeError.Visible = false; //TODO: doesn't work
+                if (isTimeStart)
+                {
+                    timeStart = time;
+                }
+                else
+                {
+                    timeEnd = time;
+                }
+            }
+            else
+            {
+                lblEndTimeError.Visible = true;
+            }
+        }
+
+        private bool IsEndTimeValid()
+        {
+            return timePickerEnd.Value > timePickerStart.Value; //TODO: what if the end time is for another day?
         }
 
         //TODO: only make save button clickable after event input > 0
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //TODO: WRITE TO FILE
-            SaveEvent();
-            Close();
+            if (IsEndTimeValid())
+            {
+                SaveEvent();
+                //TODO: save event to respective User Control Day
+                Close();
+            }
         }
 
         private void SaveEvent()
         {
-            //TODO: sort events by date in the save file?
             try
             {
                 //Create file (or overwrite if it already exists)
@@ -60,7 +85,7 @@ namespace AutoSchedule
                 //Save just the date portion of the date and not the default time value
                 string dateOnly = Convert.ToString(date).Split(' ')[0];
 
-                outFile.WriteLine(dateOnly + "," + time + "," + txtEvent.Text);
+                outFile.WriteLine(dateOnly + "," + timeStart + "," + timeEnd + "," + txtEvent.Text);
             }
             catch
             {
@@ -95,7 +120,12 @@ namespace AutoSchedule
 
         private void timePicker_ValueChanged(object sender, EventArgs e)
         {
-            SetTime(timePicker.Value.TimeOfDay);
+            SetTime(timePickerStart.Value.TimeOfDay, true);
+        }
+
+        private void timePickerEnd_ValueChanged(object sender, EventArgs e)
+        {
+            SetTime(timePickerEnd.Value.TimeOfDay, false);
         }
     }
 }
