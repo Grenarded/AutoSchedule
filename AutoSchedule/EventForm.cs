@@ -73,14 +73,23 @@ namespace AutoSchedule
                 //TODO: save event to respective User Control Day
                 Close();
             }
+            //TODO: if spammed 5 times, error popup window
         }
 
         private void SaveEvent()
         {
             try
             {
-                //Create file (or overwrite if it already exists)
-                outFile = File.CreateText(Form1.EVENT_FILE);
+                try
+                {
+                    //Appends to the existing event file
+                    outFile = File.AppendText(Form1.EVENT_FILE);
+                }
+                catch
+                {
+                    //Create file (or overwrite if it already exists)
+                    outFile = File.CreateText(Form1.EVENT_FILE);
+                }
 
                 //Save just the date portion of the date and not the default time value
                 string dateOnly = Convert.ToString(date).Split(' ')[0];

@@ -12,12 +12,40 @@ namespace AutoSchedule
 {
     public partial class UserControlEvent : UserControl
     {
-        DateTime dateTime;
+        DateTime date;
+        TimeSpan timeStart;
+        TimeSpan timeEnd;
+        string eventName;
+
         //public UserControlEvent(DateTime dateTime)
-        public UserControlEvent()
+        public UserControlEvent(DateTime date, TimeSpan timeStart, TimeSpan timeEnd, string eventName)
         {
-            //this.dateTime = dateTime;
+            this.date = date;
+            this.timeStart = timeStart;
+            this.timeEnd = timeEnd;
+            this.eventName = eventName;
+
             InitializeComponent();
+        }
+
+        public DateTime GetDate()
+        {
+            return date.Date;
+        }
+
+        public TimeSpan GetTimeStart()
+        {
+            return timeStart;
+        }
+
+        public TimeSpan GetTimeEnd()
+        {
+            return timeEnd;
+        }
+
+        public string GetEventName()
+        {
+            return eventName;
         }
     }
 }

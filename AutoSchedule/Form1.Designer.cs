@@ -40,6 +40,7 @@ namespace AutoSchedule
             this.lblThursday = new System.Windows.Forms.Label();
             this.lblSaturday = new System.Windows.Forms.Label();
             this.lblMonthYear = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // flpDays
@@ -153,11 +154,22 @@ namespace AutoSchedule
             this.lblMonthYear.Text = "MONTH YEAR";
             this.lblMonthYear.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(134, 33);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1132, 1033);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.lblMonthYear);
             this.Controls.Add(this.lblSaturday);
             this.Controls.Add(this.lblFriday);
@@ -191,6 +203,7 @@ namespace AutoSchedule
         private System.Windows.Forms.Label lblThursday;
         private System.Windows.Forms.Label lblSaturday;
         private System.Windows.Forms.Label lblMonthYear;
+        private System.Windows.Forms.Button button1;
     }
 }
 

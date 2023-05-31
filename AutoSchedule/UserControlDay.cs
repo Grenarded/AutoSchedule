@@ -16,9 +16,12 @@ namespace AutoSchedule
 
         private List<UserControlEvent> events;
 
+       // public UserControlDay(int dayNum, List<UserControlEvent> events)
         public UserControlDay(int dayNum)
         {
             this.dayNum = dayNum;
+            //this.events = events;
+
             InitializeComponent();
             AddEvents();
         }
@@ -29,12 +32,13 @@ namespace AutoSchedule
 
         private void AddEvents()
         {
+            //TODO: when reading in event times, round to the nearest 5 mins
             //TODO: add relevant events for each day 
-            for (int i = 0; i < 0; i++)
-            {
-                UserControlEvent ucEvent = new UserControlEvent();
-                flpEvents.Controls.Add(ucEvent);
-            }
+            //for (int i = 0; i < 0; i++)
+            //{
+            //    UserControlEvent ucEvent = new UserControlEvent();
+            //    flpEvents.Controls.Add(ucEvent);
+            //}
         }
 
         public void DisplayDate()

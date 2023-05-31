@@ -18,8 +18,9 @@ namespace AutoSchedule
         public const string EVENT_FILE = "Events.txt";
 
         StreamReader inFile;
+        StreamWriter outFile;
 
-        List<UserControlEvent> allEvents;
+        List<UserControlEvent> allEvents = new List<UserControlEvent>();
 
         public static int yearNum { get; private set; }
         public static int monthNum { get; private set; }
@@ -38,6 +39,8 @@ namespace AutoSchedule
 
             year = new Year(yearNum);
 
+            ReadEvents();
+
             DisplayDates();
         }
 
@@ -55,7 +58,12 @@ namespace AutoSchedule
                     line = inFile.ReadLine();
                     data = line.Split(',');
 
+                    DateTime date = Convert.ToDateTime(data[0]);
+                    TimeSpan timeStart = TimeSpan.Parse(data[1]);
+                    TimeSpan timeEnd = TimeSpan.Parse(data[2]);
+                    string eventName = data[3];
 
+                    allEvents.Add(new UserControlEvent(date, timeStart, timeEnd, eventName));
                 }
             }
             catch
@@ -70,6 +78,151 @@ namespace AutoSchedule
                     inFile.Close();
                 }
             }
+
+            //FIX
+            if (allEvents.Count > 0)
+            {
+                allEvents = MergeSort(allEvents.ToArray(), 0, allEvents.Count - 1).ToList();
+            }
+        }
+
+        private UserControlEvent[] MergeSort(UserControlEvent[] events, int left, int right)
+        {
+            if (allEvents == null)
+            {
+                return null;
+            }
+            else if (left == right)
+            {
+                return new UserControlEvent[] { events[left] };
+            }
+
+            int mid = (left + right) / 2;
+
+            return Merge(MergeSort(events, left, mid), MergeSort(events, mid + 1, right));
+        }
+
+        private UserControlEvent[] Merge(UserControlEvent[] left, UserControlEvent[] right)
+        {
+            //TODO: sort by time too
+
+            //Base case 0: the left or right array has no elements
+            if (left == null)
+            {
+                return right;
+            }
+            else if (right == null)
+            {
+                return left;
+            }
+
+            //Create a new array of size equal to the sum of the lengths of the left and right array
+            UserControlEvent[] result = new UserControlEvent[left.Length + right.Length];
+
+            //Ints pointing to the currently considered element of each given array
+            int idx1 = 0;
+            int idx2 = 0;
+
+            //For each element in the merged array, get the next smallest element between the two given arrays
+            for (int i = 0; i < result.Length; i++)
+            {
+                if (idx1 == left.Length)
+                {
+                    result[i] = right[idx2];
+                    idx2++;
+                }
+                else if (idx2 == right.Length)
+                {
+                    result[i] = left[idx1];
+                    idx1++;
+                }
+                else if (left[idx1].GetDate() < right[idx2].GetDate())
+                {
+                    result[i] = left[idx1];
+                    idx1++;
+                }
+                else
+                {
+                    result[i] = right[idx2];
+                }
+            }
+            return result;
+        }
+
+        //TODO: use to sort one event at a time when its added. Modify for this purpose
+        private void InsertionSort(string[] data)
+        {
+            //Try in case file was messed with and indices are missing
+            try
+            {
+                DateTime date = Convert.ToDateTime(data[0]);
+                TimeSpan timeStart = TimeSpan.Parse(data[1]);
+                TimeSpan timeEnd = TimeSpan.Parse(data[2]);
+                string eventName = data[3];
+
+                if (allEvents.Count > 1)
+                {
+                    //Insertion sort
+                    for (int i = 1; i < allEvents.Count; i++)
+                    {
+                        if (allEvents[i].GetDate() < allEvents[i-1].GetDate())
+                        {
+                            for (int j = 1; j > 0; j--)
+                            {
+                                UserControlEvent temp = null;
+                                if (allEvents[j].GetDate() < allEvents[j-1].GetDate())
+                                {
+                                    temp = allEvents[j - 1];
+                                    allEvents[j - 1] = allEvents[j];
+                                    allEvents[j] = temp;
+                                }
+                            }
+                        }
+                        else if (allEvents[i].GetDate() == allEvents[i-1].GetDate())
+                        {
+                            if (allEvents[i].GetTimeStart() < allEvents[i-1].GetTimeStart())
+                            {
+                                for (int j = i; j > 0; j--)
+                                {
+                                    UserControlEvent temp = null;
+                                    if (allEvents[j].GetTimeStart() < allEvents[j-1].GetTimeStart())
+                                    {
+                                        temp = allEvents[j - 1];
+                                        allEvents[j - 1] = allEvents[j];
+                                        allEvents[j] = temp;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    allEvents.Add(new UserControlEvent(date, timeStart, timeEnd, eventName));
+                }
+            }
+            catch
+            {
+                //TODO: popup?
+            }
+
+            /*
+             * for (int i = 1; i < nums.Length; i++)
+    {
+      if (nums[i] < nums[i-1])
+      {
+        for (int j = i; j > 0; j--)
+        {
+          int temp = 0;
+          if (nums[j] < nums[j-1])
+          {
+            temp = nums[j-1];
+            nums[j-1] = nums[j];
+            nums[j] = temp;
+          }
+        }
+      }
+    }*/
         }
 
         private void DisplayDates()
@@ -122,6 +275,30 @@ namespace AutoSchedule
         private void label5_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                outFile = File.CreateText("sorted.txt");
+
+                for (int i = 0; i < allEvents.Count; i++)
+                {
+                    outFile.WriteLine(allEvents[i].GetDate() + "," + allEvents[i].GetTimeStart() + "," + allEvents[i].GetTimeEnd() + "," + allEvents[i].GetEventName());
+                }
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                if (outFile != null)
+                {
+                    outFile.Close();
+                }
+            }
         }
         //
     }
