@@ -59,6 +59,9 @@ namespace AutoSchedule
 
             for (int i = 1; i <= numDays; i++)
             {
+                //TODO: search main event list to find any events for this day
+                //
+
                 UserControlDay ucDay = new UserControlDay(i);
                 ucDay.DisplayDate();
                 controls[i + daysOfWeek - 1] = ucDay;

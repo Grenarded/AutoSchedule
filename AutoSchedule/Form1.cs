@@ -58,12 +58,14 @@ namespace AutoSchedule
                     line = inFile.ReadLine();
                     data = line.Split(',');
 
+                    
                     DateTime date = Convert.ToDateTime(data[0]);
                     TimeSpan timeStart = TimeSpan.Parse(data[1]);
                     TimeSpan timeEnd = TimeSpan.Parse(data[2]);
                     string eventName = data[3];
 
                     allEvents.Add(new UserControlEvent(date, timeStart, timeEnd, eventName));
+                    
                 }
             }
             catch
@@ -79,75 +81,69 @@ namespace AutoSchedule
                 }
             }
 
-            //FIX
-            if (allEvents.Count > 0)
-            {
-                allEvents = MergeSort(allEvents.ToArray(), 0, allEvents.Count - 1).ToList();
-            }
+            allEvents = MergeSort(allEvents);
         }
 
-        private UserControlEvent[] MergeSort(UserControlEvent[] events, int left, int right)
+        private List<UserControlEvent> MergeSort(List<UserControlEvent> events)
         {
-            if (allEvents == null)
+            if (events.Count <= 1)
             {
-                return null;
-            }
-            else if (left == right)
-            {
-                return new UserControlEvent[] { events[left] };
+                return events;
             }
 
-            int mid = (left + right) / 2;
+            List<UserControlEvent> left = new List<UserControlEvent>();
+            List<UserControlEvent> right = new List<UserControlEvent>();
 
-            return Merge(MergeSort(events, left, mid), MergeSort(events, mid + 1, right));
+            int middle = events.Count / 2;
+
+            for (int i = 0; i < middle; i++)
+            {
+                left.Add(events[i]);
+            }
+            for (int i = middle; i < events.Count; i++)
+            {
+                right.Add(events[i]);
+            }
+
+            left = MergeSort(left);
+            right = MergeSort(right);
+            return Merge(left, right);
         }
 
-        private UserControlEvent[] Merge(UserControlEvent[] left, UserControlEvent[] right)
+        private List<UserControlEvent> Merge(List<UserControlEvent> left, List<UserControlEvent> right)
         {
-            //TODO: sort by time too
+            List<UserControlEvent> result = new List<UserControlEvent>();
 
-            //Base case 0: the left or right array has no elements
-            if (left == null)
+            while (left.Count > 0 || right.Count > 0)
             {
-                return right;
-            }
-            else if (right == null)
-            {
-                return left;
-            }
-
-            //Create a new array of size equal to the sum of the lengths of the left and right array
-            UserControlEvent[] result = new UserControlEvent[left.Length + right.Length];
-
-            //Ints pointing to the currently considered element of each given array
-            int idx1 = 0;
-            int idx2 = 0;
-
-            //For each element in the merged array, get the next smallest element between the two given arrays
-            for (int i = 0; i < result.Length; i++)
-            {
-                if (idx1 == left.Length)
+                if (left.Count > 0 && right.Count > 0)
                 {
-                    result[i] = right[idx2];
-                    idx2++;
+                    //if (left[0].GetDate() <= right[0].GetDate())
+                    if (left[0].GetDate() < right[0].GetDate() || (left[0].GetDate() == right[0].GetDate() && left[0].GetTimeStart() < right[0].GetTimeStart()))
+                    {
+                        result.Add(left[0]);
+                        left.Remove(left[0]);
+                    }
+                    else
+                    {
+                        result.Add(right[0]);
+                        right.Remove(right[0]);
+                    }
                 }
-                else if (idx2 == right.Length)
+                else if (left.Count > 0)
                 {
-                    result[i] = left[idx1];
-                    idx1++;
+                    result.Add(left[0]);
+                    left.Remove(left[0]);
                 }
-                else if (left[idx1].GetDate() < right[idx2].GetDate())
+                else if (right.Count > 0)
                 {
-                    result[i] = left[idx1];
-                    idx1++;
-                }
-                else
-                {
-                    result[i] = right[idx2];
+                    result.Add(right[0]);
+                    right.Remove(right[0]);
                 }
             }
             return result;
         }
+
 
         //TODO: use to sort one event at a time when its added. Modify for this purpose
         private void InsertionSort(string[] data)
@@ -205,24 +201,6 @@ namespace AutoSchedule
             {
                 //TODO: popup?
             }
-
-            /*
-             * for (int i = 1; i < nums.Length; i++)
-    {
-      if (nums[i] < nums[i-1])
-      {
-        for (int j = i; j > 0; j--)
-        {
-          int temp = 0;
-          if (nums[j] < nums[j-1])
-          {
-            temp = nums[j-1];
-            nums[j-1] = nums[j];
-            nums[j] = temp;
-          }
-        }
-      }
-    }*/
         }
 
         private void DisplayDates()
