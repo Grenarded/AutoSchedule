@@ -20,7 +20,7 @@ namespace AutoSchedule
         StreamReader inFile;
         StreamWriter outFile;
 
-        List<UserControlEvent> allEvents = new List<UserControlEvent>();
+        public static List<UserControlEvent> allEvents = new List<UserControlEvent>();
 
         public static int yearNum { get; private set; }
         public static int monthNum { get; private set; }
@@ -34,12 +34,13 @@ namespace AutoSchedule
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //TODO: calendar doesn't update for the next year
             monthNum = DateTime.Now.Month;
             yearNum = DateTime.Now.Year;
 
-            year = new Year(yearNum);
-
             ReadEvents();
+
+            year = new Year(yearNum);
 
             DisplayDates();
         }
@@ -110,6 +111,7 @@ namespace AutoSchedule
             return Merge(left, right);
         }
 
+        //TODO: dorting by time doesnt always work
         private List<UserControlEvent> Merge(List<UserControlEvent> left, List<UserControlEvent> right)
         {
             List<UserControlEvent> result = new List<UserControlEvent>();
@@ -142,6 +144,12 @@ namespace AutoSchedule
                 }
             }
             return result;
+        }
+
+        public void AddEvent(UserControlEvent newEvent)
+        {
+            allEvents.Add(newEvent);
+            //TODO: access day and add control
         }
 
 

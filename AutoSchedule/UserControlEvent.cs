@@ -17,7 +17,6 @@ namespace AutoSchedule
         TimeSpan timeEnd;
         string eventName;
 
-        //public UserControlEvent(DateTime dateTime)
         public UserControlEvent(DateTime date, TimeSpan timeStart, TimeSpan timeEnd, string eventName)
         {
             this.date = date;
@@ -26,6 +25,8 @@ namespace AutoSchedule
             this.eventName = eventName;
 
             InitializeComponent();
+
+            DisplayEventName();
         }
 
         public DateTime GetDate()
@@ -46,6 +47,11 @@ namespace AutoSchedule
         public string GetEventName()
         {
             return eventName;
+        }
+
+        private void DisplayEventName()
+        {
+            lblEventName.Text = eventName;
         }
     }
 }

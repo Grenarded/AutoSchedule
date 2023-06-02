@@ -15,7 +15,8 @@ namespace AutoSchedule
     {
         private DateTime date;
         private TimeSpan timeStart;
-        private TimeSpan timeEnd; //TODO: if end time is before start time
+        private TimeSpan timeEnd;
+        private string eventName;
 
         //File IO
         static StreamWriter outFile;
@@ -70,6 +71,10 @@ namespace AutoSchedule
             if (IsEndTimeValid())
             {
                 SaveEvent();
+                //TODO: insertion sort into list
+                Form1.allEvents.Add(new UserControlEvent(date, timeStart, timeEnd, eventName));
+                
+                //Form1.
                 //TODO: save event to respective User Control Day
                 Close();
             }
@@ -120,6 +125,7 @@ namespace AutoSchedule
             {
                 btnSave.Enabled = false;
             }
+            eventName = txtEvent.Text;
         }
 
         private void datePicker_ValueChanged(object sender, EventArgs e)
