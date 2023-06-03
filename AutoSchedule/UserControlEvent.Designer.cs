@@ -34,12 +34,13 @@ namespace AutoSchedule
             // 
             // lblEventName
             // 
-            this.lblEventName.AutoSize = true;
-            this.lblEventName.Location = new System.Drawing.Point(54, 4);
+            this.lblEventName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblEventName.Location = new System.Drawing.Point(0, 0);
             this.lblEventName.Name = "lblEventName";
-            this.lblEventName.Size = new System.Drawing.Size(35, 13);
+            this.lblEventName.Size = new System.Drawing.Size(139, 20);
             this.lblEventName.TabIndex = 0;
             this.lblEventName.Text = "label1";
+            this.lblEventName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // UserControlEvent
             // 
@@ -48,8 +49,8 @@ namespace AutoSchedule
             this.Controls.Add(this.lblEventName);
             this.Name = "UserControlEvent";
             this.Size = new System.Drawing.Size(139, 20);
+            this.BackColor = System.Drawing.Color.AliceBlue;
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

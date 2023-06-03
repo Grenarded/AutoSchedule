@@ -8,7 +8,6 @@ C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.csproj.Gen
 C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.csproj.CoreCompileInputs.cache
 C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.exe
 C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.pdb
-C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.UserControlBlank.resources
 C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.UserControlDay.resources
 C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.EventForm.resources
 C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.UserControlEvent.resources

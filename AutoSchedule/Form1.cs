@@ -25,7 +25,7 @@ namespace AutoSchedule
         public static int yearNum { get; private set; }
         public static int monthNum { get; private set; }
 
-        private Year year;
+        private static Year year;
 
         public Form1()
         {
@@ -111,7 +111,6 @@ namespace AutoSchedule
             return Merge(left, right);
         }
 
-        //TODO: dorting by time doesnt always work
         private List<UserControlEvent> Merge(List<UserControlEvent> left, List<UserControlEvent> right)
         {
             List<UserControlEvent> result = new List<UserControlEvent>();
@@ -146,10 +145,11 @@ namespace AutoSchedule
             return result;
         }
 
-        public void AddEvent(UserControlEvent newEvent)
+        public static void AddEvent(UserControlEvent newEvent)
         {
-            allEvents.Add(newEvent);
+            //TODO: insertion sort
             //TODO: access day and add control
+            year.GetMonth(newEvent.GetDate().Month).GetDay(newEvent.GetDate().Day).AddEvent(newEvent);
         }
 
 

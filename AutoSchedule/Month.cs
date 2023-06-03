@@ -11,12 +11,15 @@ namespace AutoSchedule
 {
     class Month
     {
-        private UserControlDay[] days; //necessary w/ the Controls?
+       // private UserControlDay[] days; //necessary w/ the Controls?
         private int monthNum;
         private int year;
         private string monthName;
 
-        private Control[] controls;
+        private UserControlDay[] days;
+
+        private int daysInMonth;
+        private int daysBeforeStart;
 
         public Month(int monthNum, int year)
         {
@@ -24,7 +27,14 @@ namespace AutoSchedule
             this.year = year;
             AssignMonthName();
 
-            days = new UserControlDay[DateTime.DaysInMonth(year, monthNum)];
+            daysInMonth = DateTime.DaysInMonth(year, monthNum);
+
+            //Get first day of the month
+            DateTime startOfMonth = new DateTime(year, monthNum, 1);
+
+            daysBeforeStart = Convert.ToInt32(startOfMonth.DayOfWeek.ToString("d"));
+
+            // days = new UserControlDay[DateTime.DaysInMonth(year, monthNum)];
 
             LoadControls();
         }
@@ -39,45 +49,37 @@ namespace AutoSchedule
             monthName = DateTimeFormatInfo.CurrentInfo.GetMonthName(monthNum);
         }
 
+        public UserControlDay GetDay(int dayNum)
+        {
+            return days[daysBeforeStart + dayNum - 1];
+        }
+
         private void LoadControls()
         {
-            //Get first day of the month
-            DateTime startofMonth = new DateTime(year, monthNum, 1);
+            days = new UserControlDay[daysBeforeStart + daysInMonth];
 
-            //Get num of days in the month 
-            int numDays = DateTime.DaysInMonth(year, monthNum);
-
-            int daysOfWeek = Convert.ToInt32(startofMonth.DayOfWeek.ToString("d"));
-
-            controls = new Control[daysOfWeek + numDays];
-
-            for (int i = 0; i < daysOfWeek; i++)
+            for (int i = 0; i < daysBeforeStart; i++)
             {
-                UserControlBlank ucBlank = new UserControlBlank();
-                controls[i] = ucBlank;
+                //UserControlBlank ucBlank = new UserControlBlank();
+                UserControlDay blankDay = new UserControlDay();
+                days[i] = blankDay;
             }
 
-            for (int i = 1; i <= numDays; i++)
+            for (int i = 1; i <= daysInMonth; i++)
             {
-                UserControlDay ucDay;
-                //TODO: search main event list to find any events for this day
-                //
-                //while (BinarySearch(Form1.allEvents, new DateTime(year, monthNum, i)) != null)
-                {
-                    //TODO: make it so that it doesnt return an event it already searched for
-                }
+                UserControlDay ucDay = new UserControlDay();
 
                 List<UserControlEvent> events = new List<UserControlEvent>();
 
-                if (BinarySearchLastIndex(Form1.allEvents, new DateTime(year, monthNum, i), 0, Form1.allEvents.Count - 1) != -1)
+                if (ucDay.BinarySearchLastIndex(Form1.allEvents, new DateTime(year, monthNum, i), 0, Form1.allEvents.Count - 1) != -1)
                 {
-                    int lastIndex = BinarySearchLastIndex(Form1.allEvents, new DateTime(year, monthNum, i), 0, Form1.allEvents.Count - 1);
-                    int firstIndex = BinarySearchFirstIndex(Form1.allEvents, new DateTime(year, monthNum, i), 0, Form1.allEvents.Count - 1);
+                    int lastIndex = ucDay.BinarySearchLastIndex(Form1.allEvents, new DateTime(year, monthNum, i), 0, Form1.allEvents.Count - 1);
+                    int firstIndex = ucDay.BinarySearchFirstIndex(Form1.allEvents, new DateTime(year, monthNum, i), 0, Form1.allEvents.Count - 1);
 
-                    while (lastIndex >= firstIndex)
+                    while (firstIndex <= lastIndex)
                     {
-                        events.Add(Form1.allEvents[lastIndex]);
-                        lastIndex--;
+                        events.Add(Form1.allEvents[firstIndex]);
+                        firstIndex++;
                     }
 
                     ucDay = new UserControlDay(i, events);
@@ -86,10 +88,11 @@ namespace AutoSchedule
                 {
                     ucDay = new UserControlDay(i);
                 }
-                ucDay.DisplayDate();
-                controls[i + daysOfWeek - 1] = ucDay;
 
-                ////Check if the day user control is the current date's
+                ucDay.DisplayDate();
+                days[i + daysBeforeStart - 1] = ucDay;
+
+                //Check if the day user control is the current date's
                 if (i == DateTime.Now.Day && monthNum == DateTime.Now.Month && year == DateTime.Now.Year)
                 {
                     //Highlight box for the current date
@@ -98,69 +101,9 @@ namespace AutoSchedule
             }
         }
 
-        public int BinarySearchFirstIndex(List<UserControlEvent> events, DateTime date, int low, int high)
-        {
-            if (low > high)
-            {
-                return -1;
-            }
-
-            int mid = (low + high) / 2;
-
-            if (date == events[mid].GetDate())
-            {
-                if (mid == 0 || events[mid - 1].GetDate() != date)
-                {
-                    return mid;
-                }
-                else
-                {
-                    return BinarySearchFirstIndex(events, date, low, mid - 1);
-                }
-            }
-            else if (date < events[mid].GetDate())
-            {
-                return BinarySearchFirstIndex(events, date, low, mid - 1);
-            }
-            else
-            {
-                return BinarySearchFirstIndex(events, date, mid + 1, high);
-            }
-        }
-
-        public static int BinarySearchLastIndex(List<UserControlEvent> events, DateTime date, int low, int high)
-        {
-            if (low > high)
-            {
-                return -1;
-            }
-
-            int mid = (low + high) / 2;
-
-            if (date == events[mid].GetDate())
-            {
-                if (mid == events.Count - 1 || events[mid + 1].GetDate() != date)
-                {
-                    return mid;
-                }
-                else
-                {
-                    return BinarySearchLastIndex(events, date, mid + 1, high);
-                }
-            }
-            else if (date < events[mid].GetDate())
-            {
-                return BinarySearchLastIndex(events, date, low, mid - 1);
-            }
-            else
-            {
-                return BinarySearchLastIndex(events, date, mid + 1, high);
-            }
-        }
-
         public Control[] GetControls()
         {
-            return controls;
+            return days;
         }
     }
 }

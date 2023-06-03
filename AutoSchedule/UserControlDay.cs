@@ -14,9 +14,7 @@ namespace AutoSchedule
     {
         private int dayNum;
 
-        private int recentEventIndex = 0;
-
-        private List<UserControlEvent> events;
+        private List<UserControlEvent> events = new List<UserControlEvent>();
 
         public UserControlDay(int dayNum, List<UserControlEvent> events)
         {
@@ -34,6 +32,14 @@ namespace AutoSchedule
             InitializeComponent();
         }
 
+        public UserControlDay()
+        {
+            InitializeComponent();
+
+            BackColor = DefaultBackColor;
+            lblDayNum.Text = "";
+        }
+
     private void UserControlDay_Load(object sender, EventArgs e)
         {
         }
@@ -41,18 +47,77 @@ namespace AutoSchedule
         private void AddEvents()
         {
             //TODO: when reading in event times, round to the nearest 5 mins
-            //TODO: add relevant events for each day 
-            for (int i = recentEventIndex; i < events.Count; i++)
+            for (int i = 0; i < events.Count; i++)
             {
                 UserControlEvent ucEvent = new UserControlEvent(events[i].GetDate(), events[i].GetTimeStart(), events[i].GetTimeEnd(), events[i].GetEventName());
                 flpEvents.Controls.Add(ucEvent);
-                recentEventIndex = i + 1;
             }
-            //for (int i = 0; i < 0; i++)
-            //{
-            //    UserControlEvent ucEvent = new UserControlEvent();
-            //    flpEvents.Controls.Add(ucEvent);
-            //}
+        }
+
+        public void AddEvent(UserControlEvent newEvent)
+        {
+            events.Add(newEvent);
+            flpEvents.Controls.Add(newEvent);
+        }
+
+        public int BinarySearchFirstIndex(List<UserControlEvent> events, DateTime date, int low, int high)
+        {
+            if (low > high)
+            {
+                return -1;
+            }
+
+            int mid = (low + high) / 2;
+
+            if (date == events[mid].GetDate())
+            {
+                if (mid == 0 || events[mid - 1].GetDate() != date)
+                {
+                    return mid;
+                }
+                else
+                {
+                    return BinarySearchFirstIndex(events, date, low, mid - 1);
+                }
+            }
+            else if (date < events[mid].GetDate())
+            {
+                return BinarySearchFirstIndex(events, date, low, mid - 1);
+            }
+            else
+            {
+                return BinarySearchFirstIndex(events, date, mid + 1, high);
+            }
+        }
+
+        public int BinarySearchLastIndex(List<UserControlEvent> events, DateTime date, int low, int high)
+        {
+            if (low > high)
+            {
+                return -1;
+            }
+
+            int mid = (low + high) / 2;
+
+            if (date == events[mid].GetDate())
+            {
+                if (mid == events.Count - 1 || events[mid + 1].GetDate() != date)
+                {
+                    return mid;
+                }
+                else
+                {
+                    return BinarySearchLastIndex(events, date, mid + 1, high);
+                }
+            }
+            else if (date < events[mid].GetDate())
+            {
+                return BinarySearchLastIndex(events, date, low, mid - 1);
+            }
+            else
+            {
+                return BinarySearchLastIndex(events, date, mid + 1, high);
+            }
         }
 
         public void DisplayDate()
