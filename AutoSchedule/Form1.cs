@@ -147,68 +147,10 @@ namespace AutoSchedule
 
         public static void AddEvent(UserControlEvent newEvent)
         {
-            //TODO: insertion sort
-            //TODO: access day and add control
-            year.GetMonth(newEvent.GetDate().Month).GetDay(newEvent.GetDate().Day).AddEvent(newEvent);
-        }
+            UserControlDay day = year.GetMonth(newEvent.GetDate().Month).GetDay(newEvent.GetDate().Day);
 
-
-        //TODO: use to sort one event at a time when its added. Modify for this purpose
-        private void InsertionSort(string[] data)
-        {
-            //Try in case file was messed with and indices are missing
-            try
-            {
-                DateTime date = Convert.ToDateTime(data[0]);
-                TimeSpan timeStart = TimeSpan.Parse(data[1]);
-                TimeSpan timeEnd = TimeSpan.Parse(data[2]);
-                string eventName = data[3];
-
-                if (allEvents.Count > 1)
-                {
-                    //Insertion sort
-                    for (int i = 1; i < allEvents.Count; i++)
-                    {
-                        if (allEvents[i].GetDate() < allEvents[i-1].GetDate())
-                        {
-                            for (int j = 1; j > 0; j--)
-                            {
-                                UserControlEvent temp = null;
-                                if (allEvents[j].GetDate() < allEvents[j-1].GetDate())
-                                {
-                                    temp = allEvents[j - 1];
-                                    allEvents[j - 1] = allEvents[j];
-                                    allEvents[j] = temp;
-                                }
-                            }
-                        }
-                        else if (allEvents[i].GetDate() == allEvents[i-1].GetDate())
-                        {
-                            if (allEvents[i].GetTimeStart() < allEvents[i-1].GetTimeStart())
-                            {
-                                for (int j = i; j > 0; j--)
-                                {
-                                    UserControlEvent temp = null;
-                                    if (allEvents[j].GetTimeStart() < allEvents[j-1].GetTimeStart())
-                                    {
-                                        temp = allEvents[j - 1];
-                                        allEvents[j - 1] = allEvents[j];
-                                        allEvents[j] = temp;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    allEvents.Add(new UserControlEvent(date, timeStart, timeEnd, eventName));
-                }
-            }
-            catch
-            {
-                //TODO: popup?
-            }
+            day.InsertionSort(allEvents, newEvent);
+            day.AddEvent(newEvent);
         }
 
         private void DisplayDates()

@@ -40,7 +40,35 @@ namespace AutoSchedule
             lblDayNum.Text = "";
         }
 
-    private void UserControlDay_Load(object sender, EventArgs e)
+        public void InsertionSort(List<UserControlEvent> eventList, UserControlEvent addedEvent)
+        {
+            //Try in case file was messed with and indices are missing
+            try
+            {
+                eventList.Add(addedEvent);
+
+                if (eventList.Count > 1)
+                {
+                    for (int i = 1; i < eventList.Count; i++)
+                    {
+                        int j = i;
+                        while (j > 0 && eventList[j].GetDateAndTimeStart() < eventList[j - 1].GetDateAndTimeStart())
+                        {
+                            UserControlEvent temp = eventList[j];
+                            eventList[j] = eventList[j - 1];
+                            eventList[j - 1] = temp;
+                            j--;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                //TODO: popup?
+            }
+        }
+
+        private void UserControlDay_Load(object sender, EventArgs e)
         {
         }
 
@@ -54,10 +82,13 @@ namespace AutoSchedule
             }
         }
 
+        //TODO: insert at approproiate spot in list and calendar
         public void AddEvent(UserControlEvent newEvent)
         {
-            events.Add(newEvent);
-            flpEvents.Controls.Add(newEvent);
+            InsertionSort(events, newEvent);
+            flpEvents.Controls.Clear();
+            AddEvents();
+            //flpEvents.Controls.Add(newEvent);
         }
 
         public int BinarySearchFirstIndex(List<UserControlEvent> events, DateTime date, int low, int high)
@@ -132,13 +163,28 @@ namespace AutoSchedule
 
         private void flpEvents_Click(object sender, EventArgs e)
         {
-            ShowEventForm();
+            try
+            {
+                ShowEventForm();
+            }
+            catch
+            {
+                //
+            }
         }
 
         private void ShowEventForm()
         {
-            EventForm eventForm = new EventForm(new DateTime(Form1.yearNum, Form1.monthNum, dayNum));
-            eventForm.ShowDialog();
+            try
+            {
+                //Sometimes crashes
+                EventForm eventForm = new EventForm(new DateTime(Form1.yearNum, Form1.monthNum, dayNum));
+                eventForm.ShowDialog();
+            }
+            catch
+            {
+
+            }
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)

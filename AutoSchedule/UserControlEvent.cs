@@ -12,15 +12,16 @@ namespace AutoSchedule
 {
     public partial class UserControlEvent : UserControl
     {
-        DateTime date;
-        TimeSpan timeStart;
+        DateTime dateAndTimeStart;
         TimeSpan timeEnd;
         string eventName;
 
         public UserControlEvent(DateTime date, TimeSpan timeStart, TimeSpan timeEnd, string eventName)
         {
-            this.date = date;
-            this.timeStart = timeStart;
+            dateAndTimeStart = new DateTime(date.Year, date.Month, date.Day, timeStart.Hours, timeStart.Minutes, timeStart.Seconds);
+           
+            //this.date = date;
+            //this.timeStart = timeStart;
             this.timeEnd = timeEnd;
             this.eventName = eventName;
 
@@ -29,14 +30,19 @@ namespace AutoSchedule
             DisplayEventName();
         }
 
+        public DateTime GetDateAndTimeStart()
+        {
+            return dateAndTimeStart;
+        }
+
         public DateTime GetDate()
         {
-            return date.Date;
+            return dateAndTimeStart.Date;
         }
 
         public TimeSpan GetTimeStart()
         {
-            return timeStart;
+            return dateAndTimeStart.TimeOfDay;
         }
 
         public TimeSpan GetTimeEnd()

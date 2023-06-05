@@ -34,7 +34,7 @@ namespace AutoSchedule
 
             daysBeforeStart = Convert.ToInt32(startOfMonth.DayOfWeek.ToString("d"));
 
-            // days = new UserControlDay[DateTime.DaysInMonth(year, monthNum)];
+            days = new UserControlDay[daysBeforeStart + daysInMonth];
 
             LoadControls();
         }
@@ -56,8 +56,6 @@ namespace AutoSchedule
 
         private void LoadControls()
         {
-            days = new UserControlDay[daysBeforeStart + daysInMonth];
-
             for (int i = 0; i < daysBeforeStart; i++)
             {
                 //UserControlBlank ucBlank = new UserControlBlank();
