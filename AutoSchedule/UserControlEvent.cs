@@ -69,6 +69,9 @@ namespace AutoSchedule
         {
             //EventForm eventEditForm = new EventForm(dateAndTimeStart, this);
             //eventEditForm.ShowDialog();
+
+            EventEditForm eventEditForm = new EventEditForm(this);
+            eventEditForm.ShowDialog();
         }
 
         private void lblEventName_MouseHover(object sender, EventArgs e)

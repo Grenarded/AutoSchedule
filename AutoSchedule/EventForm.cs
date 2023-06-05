@@ -13,10 +13,10 @@ namespace AutoSchedule
 {
     public partial class EventForm : Form
     {
-        private DateTime date;
-        private TimeSpan timeStart;
-        private TimeSpan timeEnd;
-        private string eventName;
+        protected DateTime date;
+        protected TimeSpan timeStart;
+        protected TimeSpan timeEnd;
+        protected string eventName;
 
         //File IO
         static StreamWriter outFile;
@@ -24,6 +24,7 @@ namespace AutoSchedule
         public EventForm()
         {
             InitializeComponent();
+            date = DateTime.Now;
         }
 
         public EventForm(DateTime date)
@@ -54,12 +55,12 @@ namespace AutoSchedule
             datePicker.Value = date;
         }
 
-        private void SetDate(DateTime date)
+        protected void SetDate(DateTime date)
         {
             this.date = date;
         }
 
-        private void SetTime(TimeSpan time, bool isTimeStart)
+        protected void SetTime(TimeSpan time, bool isTimeStart)
         {
             if (IsEndTimeValid())
             {
@@ -79,12 +80,12 @@ namespace AutoSchedule
             }
         }
 
-        private bool IsEndTimeValid()
+        protected bool IsEndTimeValid()
         {
             return timePickerEnd.Value > timePickerStart.Value; //TODO: what if the end time is for another day?
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        public virtual void btnSave_Click(object sender, EventArgs e)
         {
             if (IsEndTimeValid())
             {

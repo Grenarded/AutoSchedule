@@ -163,13 +163,13 @@ namespace AutoSchedule
         #endregion
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.Label lblEvent;
-        private System.Windows.Forms.TextBox txtEvent;
+        protected System.Windows.Forms.TextBox txtEvent;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.DateTimePicker timePickerStart;
-        private System.Windows.Forms.DateTimePicker datePicker;
+        protected System.Windows.Forms.DateTimePicker timePickerStart;
+        protected System.Windows.Forms.DateTimePicker datePicker;
         private System.Windows.Forms.Label lblTimeStart;
         private System.Windows.Forms.Label lblTimeEnd;
-        private System.Windows.Forms.DateTimePicker timePickerEnd;
+        protected System.Windows.Forms.DateTimePicker timePickerEnd;
         private System.Windows.Forms.Label lblEndTimeError;
     }
 }
