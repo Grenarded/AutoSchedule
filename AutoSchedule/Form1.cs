@@ -172,6 +172,7 @@ namespace AutoSchedule
             {
                 yearNum++;
                 monthNum = 0;
+                year = new Year(yearNum);
             }
 
             monthNum++;
@@ -188,6 +189,7 @@ namespace AutoSchedule
             {
                 yearNum--;
                 monthNum = Year.MONTHS_IN_YEAR + 1;
+                year = new Year(yearNum);
             }
 
             monthNum--;

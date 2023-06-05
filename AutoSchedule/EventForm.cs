@@ -21,6 +21,11 @@ namespace AutoSchedule
         //File IO
         static StreamWriter outFile;
 
+        public EventForm()
+        {
+            InitializeComponent();
+        }
+
         public EventForm(DateTime date)
         {
             InitializeComponent();
@@ -29,6 +34,20 @@ namespace AutoSchedule
             timePickerEnd.Value = timePickerStart.Value.AddHours(1);
             timeEnd = timePickerEnd.Value.TimeOfDay;
         }
+
+        //public EventForm(DateTime date, UserControlEvent selectedEvent)
+        //{
+        //    InitializeComponent();
+        //    this.date = date;
+        //    timeStart = date.TimeOfDay;
+        //    timeEnd = selectedEvent.GetTimeEnd();
+        //    eventName = selectedEvent.GetEventName();
+
+        //    //Preset time picker values
+        //    timePickerStart.Value = date;
+        //    timePickerEnd.Value = new DateTime(date.Year, date.Month, date.Day, timeEnd.Hours, timeEnd.Minutes, timeEnd.Seconds);
+        //    txtEvent.Text = eventName;
+        //}
 
         private void EventForm_Load(object sender, EventArgs e)
         {
@@ -44,7 +63,7 @@ namespace AutoSchedule
         {
             if (IsEndTimeValid())
             {
-                lblEndTimeError.Visible = false; //TODO: doesn't work
+                lblEndTimeError.Visible = false; 
                 if (isTimeStart)
                 {
                     timeStart = time;
@@ -65,7 +84,6 @@ namespace AutoSchedule
             return timePickerEnd.Value > timePickerStart.Value; //TODO: what if the end time is for another day?
         }
 
-        //TODO: only make save button clickable after event input > 0
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (IsEndTimeValid())

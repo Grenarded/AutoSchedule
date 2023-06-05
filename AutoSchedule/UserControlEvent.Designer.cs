@@ -41,15 +41,18 @@ namespace AutoSchedule
             this.lblEventName.TabIndex = 0;
             this.lblEventName.Text = "label1";
             this.lblEventName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblEventName.Click += new System.EventHandler(this.lblEventName_Click);
+            this.lblEventName.MouseHover += new System.EventHandler(this.lblEventName_MouseHover);
             // 
             // UserControlEvent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.AliceBlue;
             this.Controls.Add(this.lblEventName);
             this.Name = "UserControlEvent";
             this.Size = new System.Drawing.Size(139, 20);
-            this.BackColor = System.Drawing.Color.AliceBlue;
+            this.Click += new System.EventHandler(this.UserControlEvent_Click);
             this.ResumeLayout(false);
 
         }

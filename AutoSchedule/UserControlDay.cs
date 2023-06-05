@@ -196,5 +196,10 @@ namespace AutoSchedule
         {
 
         }
+
+        private void UserControlDay_MouseHover(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Cross;
+        }
     }
 }

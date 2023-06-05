@@ -61,6 +61,7 @@ namespace AutoSchedule
             this.Size = new System.Drawing.Size(145, 120);
             this.Load += new System.EventHandler(this.UserControlDay_Load);
             this.Click += new System.EventHandler(this.UserControlDay_Click);
+            this.MouseHover += new System.EventHandler(this.UserControlDay_MouseHover);
             this.ResumeLayout(false);
             this.PerformLayout();
 

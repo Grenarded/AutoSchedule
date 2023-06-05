@@ -1,7 +1,6 @@
 C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\bin\Debug\AutoSchedule.exe.config
 C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\bin\Debug\AutoSchedule.exe
 C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\bin\Debug\AutoSchedule.pdb
-C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.csproj.AssemblyReference.cache
 C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.Form1.resources
 C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.Properties.Resources.resources
 C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.csproj.GenerateResource.cache

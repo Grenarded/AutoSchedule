@@ -59,5 +59,21 @@ namespace AutoSchedule
         {
             lblEventName.Text = eventName;
         }
+
+        private void UserControlEvent_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void lblEventName_Click(object sender, EventArgs e)
+        {
+            //EventForm eventEditForm = new EventForm(dateAndTimeStart, this);
+            //eventEditForm.ShowDialog();
+        }
+
+        private void lblEventName_MouseHover(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Hand;
+        }
     }
 }
