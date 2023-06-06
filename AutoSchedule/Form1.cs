@@ -153,6 +153,14 @@ namespace AutoSchedule
             day.AddEvent(newEvent);
         }
 
+        public static void DeleteEvent(UserControlEvent deleteEvent)
+        {
+            UserControlDay day = year.GetMonth(deleteEvent.GetDate().Month).GetDay(deleteEvent.GetDate().Day);
+
+            day.DeleteEvent(deleteEvent);
+            allEvents.RemoveAt(day.BinarySearchSpecific(allEvents, deleteEvent.GetDateAndTimeStart(), 0, allEvents.Count));
+        }
+
         private void DisplayDates()
         {
             flpDays.Controls.Clear();

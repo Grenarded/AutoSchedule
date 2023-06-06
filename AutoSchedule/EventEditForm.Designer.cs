@@ -29,9 +29,43 @@ namespace AutoSchedule
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // datePicker
+            // 
+            this.datePicker.Value = new System.DateTime(2023, 6, 5, 16, 0, 50, 467);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.BackColor = System.Drawing.Color.Red;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.Location = new System.Drawing.Point(194, 225);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(49, 21);
+            this.btnDelete.TabIndex = 11;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // EventEditForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.ClientSize = new System.Drawing.Size(475, 318);
+            this.Controls.Add(this.btnDelete);
+            this.Name = "EventEditForm";
+            this.Controls.SetChildIndex(this.txtEvent, 0);
+            this.Controls.SetChildIndex(this.timePickerStart, 0);
+            this.Controls.SetChildIndex(this.datePicker, 0);
+            this.Controls.SetChildIndex(this.timePickerEnd, 0);
+            this.Controls.SetChildIndex(this.btnDelete, 0);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnDelete;
     }
 }

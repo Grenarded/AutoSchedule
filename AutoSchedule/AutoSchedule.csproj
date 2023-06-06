@@ -80,6 +80,9 @@
       <DependentUpon>UserControlEvent.cs</DependentUpon>
     </Compile>
     <Compile Include="Year.cs" />
+    <EmbeddedResource Include="EventEditForm.resx">
+      <DependentUpon>EventEditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EventForm.resx">
       <DependentUpon>EventForm.cs</DependentUpon>
     </EmbeddedResource>

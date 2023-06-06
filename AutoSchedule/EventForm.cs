@@ -19,7 +19,7 @@ namespace AutoSchedule
         protected string eventName;
 
         //File IO
-        static StreamWriter outFile;
+        protected static StreamWriter outFile;
 
         public EventForm()
         {
@@ -99,7 +99,7 @@ namespace AutoSchedule
             //TODO: if spammed 5 times, error popup window
         }
 
-        private void SaveEvent()
+        public virtual void SaveEvent()
         {
             try
             {

@@ -82,13 +82,48 @@ namespace AutoSchedule
             }
         }
 
-        //TODO: insert at approproiate spot in list and calendar
         public void AddEvent(UserControlEvent newEvent)
         {
             InsertionSort(events, newEvent);
             flpEvents.Controls.Clear();
             AddEvents();
-            //flpEvents.Controls.Add(newEvent);
+        }
+
+        public void DeleteEvent(UserControlEvent deleteEvent)
+        {
+            events.RemoveAt(BinarySearchSpecific(events, deleteEvent.GetDateAndTimeStart(), 0, events.Count));
+            flpEvents.Controls.Clear();
+            AddEvents();
+        }
+
+        public int BinarySearchSpecific(List<UserControlEvent> events, DateTime dateTimeStart, int low, int high)
+        {
+            if (low > high)
+            {
+                return -1;
+            }
+
+            int mid = (low + high) / 2;
+
+            if (dateTimeStart == events[mid].GetDateAndTimeStart())
+            {
+                if (mid == 0 || events[mid - 1].GetDateAndTimeStart() != dateTimeStart)
+                {
+                    return mid;
+                }
+                else
+                {
+                    return BinarySearchSpecific(events, dateTimeStart, low, mid - 1);
+                }
+            }
+            else if (dateTimeStart < events[mid].GetDateAndTimeStart())
+            {
+                return BinarySearchSpecific(events, dateTimeStart, low, mid - 1);
+            }
+            else
+            {
+                return BinarySearchSpecific(events, dateTimeStart, mid + 1, high);
+            }
         }
 
         public int BinarySearchFirstIndex(List<UserControlEvent> events, DateTime date, int low, int high)
