@@ -12,9 +12,13 @@ namespace AutoSchedule
 {
     public partial class UserControlDay : UserControl
     {
+        private const int MAX_EVENTS_DISPLAYED = 4;
+
         private int dayNum;
 
         private List<UserControlEvent> events = new List<UserControlEvent>();
+
+        private bool isBlankDay = false;
 
         public UserControlDay(int dayNum, List<UserControlEvent> events)
         {
@@ -38,6 +42,7 @@ namespace AutoSchedule
 
             BackColor = DefaultBackColor;
             lblDayNum.Text = "";
+            isBlankDay = true;
         }
 
         public List<UserControlEvent> GetEvents()
@@ -85,11 +90,51 @@ namespace AutoSchedule
         private void AddEvents()
         {
             //TODO: when reading in event times, round to the nearest 5 mins
-            for (int i = 0; i < events.Count; i++)
+            //DOESN'T WORK. THE 15th STILL DISPLAYS ALL EVENTS
+            if (events.Count > MAX_EVENTS_DISPLAYED)
             {
-                UserControlEvent ucEvent = new UserControlEvent(events[i].GetDate(), events[i].GetTimeStart(), events[i].GetTimeEnd(), events[i].GetEventName());
-                flpEvents.Controls.Add(ucEvent);
+                for (int i = 0; i < MAX_EVENTS_DISPLAYED - 1; i++)
+                {
+                    UserControlEvent ucEvent = new UserControlEvent(events[i].GetDate(), events[i].GetTimeStart(), events[i].GetTimeEnd(), events[i].GetEventName());
+                    flpEvents.Controls.Add(ucEvent);
+                }
+                int remainingEvents = events.Count - MAX_EVENTS_DISPLAYED;
+
+                if (remainingEvents > 1)
+                {
+                    lblMaxEvents.Text = "+ " + remainingEvents + " More Events";
+                }
+                else
+                {
+                    lblMaxEvents.Text = "+ " + remainingEvents + " More Event";
+                }
+                lblMaxEvents.Visible = true;
+                //DisplayMaxLabel();
             }
+            else
+            {
+                lblMaxEvents.Visible = false;
+                for (int i = 0; i < events.Count; i++)
+                {
+                    UserControlEvent ucEvent = new UserControlEvent(events[i].GetDate(), events[i].GetTimeStart(), events[i].GetTimeEnd(), events[i].GetEventName());
+                    flpEvents.Controls.Add(ucEvent);
+                }
+            }
+        }
+
+        private void DisplayMaxLabel()
+        {
+            Label lblMaxEvents = new Label();
+            lblMaxEvents.SuspendLayout();
+
+            lblMaxEvents.Dock = DockStyle.Fill;
+            lblMaxEvents.Location = new Point(100, 200);
+            //lblMaxEvents.Location = new Point(flpEvents.Controls[flpEvents.Controls.Count - 1].Location.X, flpEvents.Controls[flpEvents.Controls.Count - 1].Location.Y + 5);
+            lblMaxEvents.Name = "lblMaxEvents";
+            lblMaxEvents.Size = new Size(139, 20);
+            //lblMaxEvents.TabIndex = 0;
+            lblMaxEvents.Text = "Test";
+            lblMaxEvents.TextAlign = ContentAlignment.MiddleCenter;
         }
 
         public void AddEvent(UserControlEvent newEvent)
@@ -220,13 +265,16 @@ namespace AutoSchedule
 
         private void HighlightDay()
         {
-            if (Form1.activeDay != null)
+            if (!isBlankDay)
             {
-                Form1.activeDay.BorderStyle = BorderStyle.None;
-            }
+                if (Form1.activeDay != null)
+                {
+                    Form1.activeDay.BorderStyle = BorderStyle.None;
+                }
 
-            BorderStyle = BorderStyle.FixedSingle;
-            Form1.activeDay = this;
+                BorderStyle = BorderStyle.FixedSingle;
+                Form1.activeDay = this;
+            }
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
@@ -237,6 +285,11 @@ namespace AutoSchedule
         private void panel13_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void lblMaxEvents_Click(object sender, EventArgs e)
+        {
+            HighlightDay();
         }
     }
 }

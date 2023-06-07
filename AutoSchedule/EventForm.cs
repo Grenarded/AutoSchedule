@@ -83,13 +83,9 @@ namespace AutoSchedule
             if (IsEndTimeValid())
             {
                 SaveEvent();
-                //TODO: Remove. Insertion sort will eventually be done in driver class
-                // Form1.allEvents.Add(new UserControlEvent(date, timeStart, timeEnd, eventName));
                 Form1.AddEvent(new UserControlEvent(date, timeStart, timeEnd, eventName));
-                //TODO: save event to respective User Control Day
                 Close();
             }
-            //TODO: if spammed 5 times, error popup window
         }
 
         //TODO: method can be called a lot less

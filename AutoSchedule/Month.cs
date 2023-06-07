@@ -58,7 +58,6 @@ namespace AutoSchedule
         {
             for (int i = 0; i < daysBeforeStart; i++)
             {
-                //UserControlBlank ucBlank = new UserControlBlank();
                 UserControlDay blankDay = new UserControlDay();
                 days[i] = blankDay;
             }

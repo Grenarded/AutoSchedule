@@ -48,9 +48,9 @@ namespace AutoSchedule
                 time = time.AddMinutes(MINUTE_DISPLAY_INTERVAL);
             }
 
-            //TODO: not working
             time = START_TIME;
 
+            //TODO: recursive schedule filling?
             for (int i = 0; i < dgvDay.RowCount; i++)
             {
                 for (int j = 0; j < events.Count; j++)
