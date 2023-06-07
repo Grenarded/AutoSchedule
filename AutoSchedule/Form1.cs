@@ -217,26 +217,32 @@ namespace AutoSchedule
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
-            {
-                outFile = File.CreateText("sorted.txt");
+            Form form = new ScheduleForm(year.GetMonth(DateTime.Now.Month).GetDay(DateTime.Now.Day));
+            form.Location = Location;
+            form.StartPosition = FormStartPosition.Manual;
+            form.FormClosing += delegate { Show(); };
+            form.Show();
+            Hide();
+            //try
+            //{
+            //    outFile = File.CreateText("sorted.txt");
 
-                for (int i = 0; i < allEvents.Count; i++)
-                {
-                    outFile.WriteLine(allEvents[i].GetDate() + "," + allEvents[i].GetTimeStart() + "," + allEvents[i].GetTimeEnd() + "," + allEvents[i].GetEventName());
-                }
-            }
-            catch
-            {
+            //    for (int i = 0; i < allEvents.Count; i++)
+            //    {
+            //        outFile.WriteLine(allEvents[i].GetDate() + "," + allEvents[i].GetTimeStart() + "," + allEvents[i].GetTimeEnd() + "," + allEvents[i].GetEventName());
+            //    }
+            //}
+            //catch
+            //{
 
-            }
-            finally
-            {
-                if (outFile != null)
-                {
-                    outFile.Close();
-                }
-            }
+            //}
+            //finally
+            //{
+            //    if (outFile != null)
+            //    {
+            //        outFile.Close();
+            //    }
+            //}
         }
         //
     }

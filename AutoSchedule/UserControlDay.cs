@@ -40,6 +40,11 @@ namespace AutoSchedule
             lblDayNum.Text = "";
         }
 
+        public List<UserControlEvent> GetEvents()
+        {
+            return events;
+        }
+
         public void InsertionSort(List<UserControlEvent> eventList, UserControlEvent addedEvent)
         {
             //Try in case file was messed with and indices are missing

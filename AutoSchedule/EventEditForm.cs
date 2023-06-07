@@ -41,14 +41,25 @@ namespace AutoSchedule
 
         public override void btnSave_Click(object sender, EventArgs e)
         {
-            //Edit event
-            UserControlEvent originalEvent = new UserControlEvent(originalDate, originalTimeStart, originalTimeEnd, originalEventName);
-            UserControlEvent editedEvent = new UserControlEvent(date, timeStart, timeEnd, eventName);
+            if (IsEndTimeValid())
+            {
+                lblEndTimeError.Visible = false;
+                btnSave.Enabled = true;
 
-            Form1.DeleteEvent(originalEvent);
-            Form1.AddEvent(editedEvent);
-            SaveEvent();
-            Close();
+                //Edit event
+                UserControlEvent originalEvent = new UserControlEvent(originalDate, originalTimeStart, originalTimeEnd, originalEventName);
+                UserControlEvent editedEvent = new UserControlEvent(date, timeStart, timeEnd, eventName);
+
+                Form1.DeleteEvent(originalEvent);
+                Form1.AddEvent(editedEvent);
+                SaveEvent();
+                Close();
+            }
+            else
+            {
+                lblEndTimeError.Visible = true;
+                btnSave.Enabled = false;
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

@@ -64,7 +64,9 @@ namespace AutoSchedule
         {
             if (IsEndTimeValid())
             {
-                lblEndTimeError.Visible = false; 
+                lblEndTimeError.Visible = false;
+                btnSave.Enabled = true;
+
                 if (isTimeStart)
                 {
                     timeStart = time;
@@ -77,6 +79,7 @@ namespace AutoSchedule
             else
             {
                 lblEndTimeError.Visible = true;
+                btnSave.Enabled = false;
             }
         }
 
