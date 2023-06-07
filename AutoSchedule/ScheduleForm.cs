@@ -17,6 +17,8 @@ namespace AutoSchedule
         private const int MINUTE_INTERVAL = 5;
         private const int MINUTE_DISPLAY_INTERVAL = 15;
 
+        private readonly DateTime START_TIME = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
+
         List<UserControlEvent> events;
 
         public ScheduleForm()
@@ -32,31 +34,36 @@ namespace AutoSchedule
 
         private void ScheduleForm_Load(object sender, EventArgs e)
         {
+            dgvDay.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
             int numRows = (DAY_HOURS * MINUTES_IN_HOUR / MINUTE_INTERVAL);
-            //TODO: pass in the day, get datetime info from there
-            DateTime startTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
+            
+            DateTime time = START_TIME;
 
             dgvDay.Rows.Add(numRows);
 
             for (int i = 0; i < numRows; i += MINUTE_DISPLAY_INTERVAL / MINUTE_INTERVAL)
             {
-                dgvDay.Rows[i].HeaderCell.Value = startTime.ToString("hh:mm tt");
-                startTime = startTime.AddMinutes(MINUTE_DISPLAY_INTERVAL);
+                dgvDay.Rows[i].HeaderCell.Value = time.ToString("hh:mm tt");
+                time = time.AddMinutes(MINUTE_DISPLAY_INTERVAL);
             }
+
+            //TODO: not working
+            time = START_TIME;
 
             for (int i = 0; i < dgvDay.RowCount; i++)
             {
                 for (int j = 0; j < events.Count; j++)
                 {
-                    if (DateTime.TryParse(dgvDay.Rows[i].HeaderCell.Value.ToString(), out DateTime headerDateTime)) //FIX: Only checks where there is label
                     {
-                        TimeSpan headerTimeSpan = headerDateTime.TimeOfDay;
+                        TimeSpan headerTimeSpan = time.TimeOfDay;
                         if (headerTimeSpan >= events[j].GetTimeStart() && headerTimeSpan < events[j].GetTimeEnd())
                         {
                             dgvDay.Rows[i].DefaultCellStyle.BackColor = Color.Green;
                         }
                     }
                 }
+                time = time.AddMinutes(MINUTE_INTERVAL);
             }
         }
     }

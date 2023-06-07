@@ -31,24 +31,10 @@ namespace AutoSchedule
         {
             InitializeComponent();
             this.date = date.Date;
-            timeStart = timePickerStart.Value.TimeOfDay;
+            timeStart = RoundTime(timePickerStart);
             timePickerEnd.Value = timePickerStart.Value.AddHours(1);
-            timeEnd = timePickerEnd.Value.TimeOfDay;
+            timeEnd = RoundTime(timePickerEnd);
         }
-
-        //public EventForm(DateTime date, UserControlEvent selectedEvent)
-        //{
-        //    InitializeComponent();
-        //    this.date = date;
-        //    timeStart = date.TimeOfDay;
-        //    timeEnd = selectedEvent.GetTimeEnd();
-        //    eventName = selectedEvent.GetEventName();
-
-        //    //Preset time picker values
-        //    timePickerStart.Value = date;
-        //    timePickerEnd.Value = new DateTime(date.Year, date.Month, date.Day, timeEnd.Hours, timeEnd.Minutes, timeEnd.Seconds);
-        //    txtEvent.Text = eventName;
-        //}
 
         private void EventForm_Load(object sender, EventArgs e)
         {
@@ -60,12 +46,16 @@ namespace AutoSchedule
             this.date = date;
         }
 
-        protected void SetTime(TimeSpan time, bool isTimeStart)
+        private  void SetTime(TimeSpan time, bool isTimeStart)
         {
             if (IsEndTimeValid())
             {
                 lblEndTimeError.Visible = false;
-                btnSave.Enabled = true;
+
+                if (txtEvent.TextLength > 0)
+                {
+                    btnSave.Enabled = true;
+                }
 
                 if (isTimeStart)
                 {
@@ -85,7 +75,7 @@ namespace AutoSchedule
 
         protected bool IsEndTimeValid()
         {
-            return timePickerEnd.Value > timePickerStart.Value; //TODO: what if the end time is for another day?
+            return timePickerEnd.Value > timePickerStart.Value; 
         }
 
         public virtual void btnSave_Click(object sender, EventArgs e)
@@ -100,6 +90,12 @@ namespace AutoSchedule
                 Close();
             }
             //TODO: if spammed 5 times, error popup window
+        }
+
+        //TODO: method can be called a lot less
+        private TimeSpan RoundTime(DateTimePicker timePicker)
+        {
+            return new TimeSpan(timePicker.Value.TimeOfDay.Hours, timePicker.Value.TimeOfDay.Minutes, 0);
         }
 
         public virtual void SaveEvent()
@@ -138,7 +134,7 @@ namespace AutoSchedule
 
         private void txtEvent_TextChanged(object sender, EventArgs e)
         {
-            if (txtEvent.TextLength > 0)
+            if (txtEvent.TextLength > 0 && IsEndTimeValid())
             {
                 btnSave.Enabled = true;
             }
@@ -156,12 +152,12 @@ namespace AutoSchedule
 
         private void timePicker_ValueChanged(object sender, EventArgs e)
         {
-            SetTime(timePickerStart.Value.TimeOfDay, true);
+            SetTime(RoundTime(timePickerStart), true);
         }
 
         private void timePickerEnd_ValueChanged(object sender, EventArgs e)
         {
-            SetTime(timePickerEnd.Value.TimeOfDay, false);
+            SetTime(RoundTime(timePickerEnd), false);
         }
     }
 }

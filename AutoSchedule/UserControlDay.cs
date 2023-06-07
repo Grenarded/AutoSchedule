@@ -45,6 +45,11 @@ namespace AutoSchedule
             return events;
         }
 
+        public int GetDayNum()
+        {
+            return dayNum;
+        }
+
         public void InsertionSort(List<UserControlEvent> eventList, UserControlEvent addedEvent)
         {
             //Try in case file was messed with and indices are missing
@@ -198,14 +203,14 @@ namespace AutoSchedule
 
         private void UserControlDay_Click(object sender, EventArgs e)
         {
-            ShowEventForm();
+            HighlightDay();
         }
 
         private void flpEvents_Click(object sender, EventArgs e)
         {
             try
             {
-                ShowEventForm();
+                HighlightDay();
             }
             catch
             {
@@ -213,18 +218,15 @@ namespace AutoSchedule
             }
         }
 
-        private void ShowEventForm()
+        private void HighlightDay()
         {
-            try
+            if (Form1.activeDay != null)
             {
-                //Sometimes crashes
-                EventForm eventForm = new EventForm(new DateTime(Form1.yearNum, Form1.monthNum, dayNum));
-                eventForm.ShowDialog();
+                Form1.activeDay.BorderStyle = BorderStyle.None;
             }
-            catch
-            {
 
-            }
+            BorderStyle = BorderStyle.FixedSingle;
+            Form1.activeDay = this;
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)

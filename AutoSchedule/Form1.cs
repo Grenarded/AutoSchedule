@@ -18,7 +18,7 @@ namespace AutoSchedule
         public const string EVENT_FILE = "Events.txt";
 
         StreamReader inFile;
-        StreamWriter outFile;
+        //StreamWriter outFile;
 
         public static List<UserControlEvent> allEvents = new List<UserControlEvent>();
 
@@ -26,6 +26,8 @@ namespace AutoSchedule
         public static int monthNum { get; private set; }
 
         private static Year year;
+
+        public static UserControlDay activeDay;
 
         public Form1()
         {
@@ -42,7 +44,14 @@ namespace AutoSchedule
 
             year = new Year(yearNum);
 
+            //Set active day to the current day
+            activeDay = year.GetMonth(monthNum).GetDay(DateTime.Now.Day);
+
             DisplayDates();
+
+            //TODO: when hovering and they're disabled, change message saying that they must select a day
+            ttAddEvent.SetToolTip(btnAddEvent, "Add Event");
+            ttDailyView.SetToolTip(btnDailyView, "Daily View");
         }
 
         private void ReadEvents()
@@ -204,6 +213,23 @@ namespace AutoSchedule
             DisplayDates();
         }
 
+        private void ShowEventForm()
+        {
+            try
+            {
+                //Sometimes crashes
+                if (activeDay != null)
+                {
+                    EventForm eventForm = new EventForm(new DateTime(yearNum, monthNum, activeDay.GetDayNum()));
+                    eventForm.ShowDialog();
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
         //TODO: REMOVE
         private void label1_Click(object sender, EventArgs e)
         {
@@ -217,12 +243,12 @@ namespace AutoSchedule
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form form = new ScheduleForm(year.GetMonth(DateTime.Now.Month).GetDay(DateTime.Now.Day));
-            form.Location = Location;
-            form.StartPosition = FormStartPosition.Manual;
-            form.FormClosing += delegate { Show(); };
-            form.Show();
-            Hide();
+            //Form form = new ScheduleForm(year.GetMonth(DateTime.Now.Month).GetDay(DateTime.Now.Day));
+            //form.Location = Location;
+            //form.StartPosition = FormStartPosition.Manual;
+            //form.FormClosing += delegate { Show(); };
+            //form.Show();
+            //Hide();
             //try
             //{
             //    outFile = File.CreateText("sorted.txt");
@@ -243,6 +269,22 @@ namespace AutoSchedule
             //        outFile.Close();
             //    }
             //}
+        }
+
+        private void btnAddEvent_Click(object sender, EventArgs e)
+        {
+            ShowEventForm();
+        }
+
+        private void btnDailyView_Click(object sender, EventArgs e)
+        {
+            //Fix displays with this
+            Form form = new ScheduleForm(activeDay);
+            form.Location = Location;
+            form.StartPosition = FormStartPosition.Manual;
+            form.FormClosing += delegate { Show(); };
+            form.Show();
+            Hide();
         }
         //
     }

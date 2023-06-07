@@ -65,7 +65,7 @@ namespace AutoSchedule
         private void btnDelete_Click(object sender, EventArgs e)
         {
             //Delete event
-            Form1.DeleteEvent(new UserControlEvent(date, timeStart, timeEnd, eventName));
+            Form1.DeleteEvent(new UserControlEvent(originalDate, originalTimeStart, originalTimeEnd, originalEventName));
             SaveEvent();
             Close();
         }

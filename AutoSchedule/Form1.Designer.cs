@@ -29,6 +29,8 @@ namespace AutoSchedule
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.flpDays = new System.Windows.Forms.FlowLayoutPanel();
             this.btnNextMonth = new System.Windows.Forms.Button();
             this.btnPrevMonth = new System.Windows.Forms.Button();
@@ -41,6 +43,10 @@ namespace AutoSchedule
             this.lblSaturday = new System.Windows.Forms.Label();
             this.lblMonthYear = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.ttAddEvent = new System.Windows.Forms.ToolTip(this.components);
+            this.ttDailyView = new System.Windows.Forms.ToolTip(this.components);
+            this.btnAddEvent = new System.Windows.Forms.Button();
+            this.btnDailyView = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // flpDays
@@ -156,7 +162,7 @@ namespace AutoSchedule
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(134, 33);
+            this.button1.Location = new System.Drawing.Point(274, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 11;
@@ -164,11 +170,42 @@ namespace AutoSchedule
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // ttAddEvent
+            // 
+            this.ttAddEvent.AutomaticDelay = 100;
+            this.ttAddEvent.AutoPopDelay = 2000;
+            this.ttAddEvent.InitialDelay = 100;
+            this.ttAddEvent.ReshowDelay = 20;
+            // 
+            // btnAddEvent
+            // 
+            this.btnAddEvent.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddEvent.Location = new System.Drawing.Point(12, 14);
+            this.btnAddEvent.Name = "btnAddEvent";
+            this.btnAddEvent.Size = new System.Drawing.Size(40, 40);
+            this.btnAddEvent.TabIndex = 16;
+            this.btnAddEvent.Text = "+";
+            this.btnAddEvent.UseVisualStyleBackColor = true;
+            this.btnAddEvent.Click += new System.EventHandler(this.btnAddEvent_Click);
+            // 
+            // btnDailyView
+            // 
+            this.btnDailyView.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDailyView.BackgroundImage")));
+            this.btnDailyView.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnDailyView.Location = new System.Drawing.Point(58, 14);
+            this.btnDailyView.Name = "btnDailyView";
+            this.btnDailyView.Size = new System.Drawing.Size(40, 40);
+            this.btnDailyView.TabIndex = 17;
+            this.btnDailyView.UseVisualStyleBackColor = true;
+            this.btnDailyView.Click += new System.EventHandler(this.btnDailyView_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1132, 1033);
+            this.Controls.Add(this.btnDailyView);
+            this.Controls.Add(this.btnAddEvent);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lblMonthYear);
             this.Controls.Add(this.lblSaturday);
@@ -204,6 +241,10 @@ namespace AutoSchedule
         private System.Windows.Forms.Label lblSaturday;
         private System.Windows.Forms.Label lblMonthYear;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolTip ttAddEvent;
+        private System.Windows.Forms.ToolTip ttDailyView;
+        private System.Windows.Forms.Button btnAddEvent;
+        private System.Windows.Forms.Button btnDailyView;
     }
 }
 
