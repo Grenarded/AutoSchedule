@@ -14,8 +14,8 @@ namespace AutoSchedule
     {
         private const int DAY_HOURS = 24;
         private const int MINUTES_IN_HOUR = 60;
-        private const int MINUTE_INTERVAL = 5;
-        private const int MINUTE_DISPLAY_INTERVAL = 15;
+        private const int MINUTE_INTERVAL = 15;
+        private const int MINUTE_DISPLAY_INTERVAL = 60;
 
         //Track indices of start and end time in jagged array
         private const int START_ROW = 0;
@@ -73,57 +73,21 @@ namespace AutoSchedule
                 dgvDay.Rows[i].HeaderCell.Value = time.ToString("hh:mm tt");
                 time = time.AddMinutes(MINUTE_DISPLAY_INTERVAL);
             }
+
+            //Scroll to row representing closest time to right now
+            dgvDay.CurrentCell = dgvDay.Rows[(DateTime.Now.Hour * MINUTES_IN_HOUR + DateTime.Now.Minute) / MINUTE_INTERVAL].Cells[0];
             
             //Calculate and store the start row and end row value for each event
             for (int i = 0; i < eventRows.Length; i++)
             {
                 eventRows[i][0] = ((events[i].GetTimeStart().Hours * MINUTES_IN_HOUR + events[i].GetTimeStart().Minutes) / MINUTE_INTERVAL);
                 eventRows[i][1] = ((events[i].GetTimeEnd().Hours * MINUTES_IN_HOUR + events[i].GetTimeEnd().Minutes) / MINUTE_INTERVAL);
-                MessageBox.Show("Start row: " + eventRows[i][0] + "\nEnd row: " + eventRows[i][1]);
+                //MessageBox.Show("Start row: " + eventRows[i][0] + "\nEnd row: " + eventRows[i][1]);
             }
 
             LayoutEventBlocks();
-
-            /*
-             ALGORITHM IDEA:
-            -An array of int lists. 
-                -Each array element represents an event
-                -Each list contains the row int of the timespan
-            -Loop through the array, populating each list
-            -Sort by start time
-            -Check
-                -if start time of first == start time of second
-                -if end time of first < end time of second
-                -if end time of second < end time of first
-                -IF any of these conditions are met, create new column for the second element
-            -Check
-                -third against the first
-                -Same criteria as above
-                -IF any conditions are met, compare against the second
-                -IF any conditions are met, create new column
-            -Continue like this
-             */
-
-            //Loop through each event TimeSpan, tracking the start and end columns
-
-            //time = START_TIME;
-            //for (int i = 0; i < dgvDay.RowCount; i++)
-            //{
-            //    for (int j = 0; j < events.Count; j++)
-            //    {
-            //        {
-            //            TimeSpan headerTimeSpan = time.TimeOfDay;
-            //            if (headerTimeSpan >= events[j].GetTimeStart() && headerTimeSpan < events[j].GetTimeEnd())
-            //            {
-            //                dgvDay.Rows[i].DefaultCellStyle.BackColor = Color.Green;
-            //            }
-            //        }
-            //    }
-            //    time = time.AddMinutes(MINUTE_INTERVAL);
-            //}
         }
 
-        //DOESN'T WORK
         private void LayoutEventBlocks()
         {
             for (int i = 0; i < events.Count; i++)
@@ -134,14 +98,10 @@ namespace AutoSchedule
                     col = -1;
                     for (int j = 0; j < lastColEvent.Count; j++)
                     {
-                        MessageBox.Show("" + lastColEvent[j] + "\n" + eventRows[lastColEvent[j]][START_ROW] + " >= " + eventRows[j][START_ROW] + " AND " + eventRows[i][START_ROW] + " <= " + eventRows[lastColEvent[j]][END_ROW]
-                            + "\nOR\n" + eventRows[lastColEvent[j]][START_ROW] + " >= " + eventRows[i][START_ROW] + " AND " + eventRows[lastColEvent[j]][START_ROW] + " <= " + eventRows[i][END_ROW]);
-                        if ((eventRows[i][START_ROW] >= eventRows[lastColEvent[j]][START_ROW] && eventRows[i][START_ROW] <= eventRows[lastColEvent[j]][END_ROW])
-                            || (eventRows[lastColEvent[j]][START_ROW] >= eventRows[i][START_ROW] && eventRows[lastColEvent[j]][START_ROW] <= eventRows[i][END_ROW]))
-                        {
-                            
-                        }
-                        else
+                        //MessageBox.Show("" + lastColEvent[j] + "\n" + eventRows[lastColEvent[j]][START_ROW] + " >= " + eventRows[j][START_ROW] + " AND " + eventRows[i][START_ROW] + " <= " + eventRows[lastColEvent[j]][END_ROW]
+                        //    + "\nOR\n" + eventRows[lastColEvent[j]][START_ROW] + " >= " + eventRows[i][START_ROW] + " AND " + eventRows[lastColEvent[j]][START_ROW] + " <= " + eventRows[i][END_ROW]);
+                        if (!((eventRows[i][START_ROW] >= eventRows[lastColEvent[j]][START_ROW] && eventRows[i][START_ROW] <= eventRows[lastColEvent[j]][END_ROW])
+                            || (eventRows[lastColEvent[j]][START_ROW] >= eventRows[i][START_ROW] && eventRows[lastColEvent[j]][START_ROW] <= eventRows[i][END_ROW])))
                         {
                             col = j;
                             lastColEvent[col] = i;
@@ -153,48 +113,17 @@ namespace AutoSchedule
                         col = lastColEvent.Count;
                         lastColEvent.Add(i);
                     }
-                    /*
-                    for (int j = 0; j < i; j++)
-                    {
-                        if ((eventRows[i][START_ROW] >= eventRows[j][START_ROW] && eventRows[i][START_ROW] <= eventRows[j][END_ROW])
-                            || (eventRows[j][START_ROW] >= eventRows[i][START_ROW] && eventRows[j][START_ROW] <= eventRows[i][END_ROW]))
-                        {
-                            col++; 
-                        }
-                        else
-                        {
-                            col = j;
-                            //Check 
-                            //break;
-                        }
-                    }
-                    */
-                    //TODO: FIX
-                    
-                    DrawEventBlock(col, eventRows[i][START_ROW], eventRows[i][END_ROW]);
-                    
-
-                    /*
-                    for (int j = i-1; j > 0; j--)
-                    {
-                        if ((eventRows[i][START_ROW] >= eventRows[j][START_ROW] && eventRows[i][START_ROW] <= eventRows[j][END_ROW])
-                            || (eventRows[j][START_ROW] >= eventRows[i][START_ROW] && eventRows[j][START_ROW] <= eventRows[i][END_ROW]))
-                        {
-
-                        }
-                    }
-                    */
+                    DrawEventBlock(col, eventRows[i][START_ROW], eventRows[i][END_ROW], events[i].GetEventName());
                 }
                 else
                 {
                     lastColEvent.Add(col);
-                    DrawEventBlock(col, eventRows[i][START_ROW], eventRows[i][END_ROW]);
-                    //AddColumn();
+                    DrawEventBlock(col, eventRows[i][START_ROW], eventRows[i][END_ROW], events[i].GetEventName());
                 }
             }
         }
 
-        private void DrawEventBlock(int col, int startRow, int endRow)
+        private void DrawEventBlock(int col, int startRow, int endRow, string eventName)
         {
             if (col > dgvDay.Columns.Count - 1) //NOTE: you should only ever need to add one column at a time
             {
@@ -203,7 +132,11 @@ namespace AutoSchedule
 
             for (int i = startRow; i <= endRow; i++)
             {
-                dgvDay.Rows[i].Cells[col].Style.BackColor = Color.Green;
+                if (i == startRow)
+                {
+                    dgvDay.Rows[i].Cells[col].Value = eventName;
+                }
+                dgvDay.Rows[i].Cells[col].Style.BackColor = Color.CornflowerBlue;
             }
         }
 
@@ -211,7 +144,7 @@ namespace AutoSchedule
         {
             DataGridViewColumn col = new DataGridViewColumn();
             col.CellTemplate = dgvDay.Columns[0].CellTemplate;
-            col.HeaderText = "Events";
+            //col.HeaderText = "Events";
 
             //Set the new column width to be half the width of the first column
             col.Width = originalColWidth / (dgvDay.Columns.Count + 1);

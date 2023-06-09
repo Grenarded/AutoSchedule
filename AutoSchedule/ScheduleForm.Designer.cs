@@ -46,13 +46,13 @@ namespace AutoSchedule
             this.dgvDay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.eventCol1});
-            this.dgvDay.Location = new System.Drawing.Point(124, 84);
+            this.dgvDay.Location = new System.Drawing.Point(124, 43);
             this.dgvDay.MultiSelect = false;
             this.dgvDay.Name = "dgvDay";
             this.dgvDay.ReadOnly = true;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 5.25F);
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F);
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -63,14 +63,14 @@ namespace AutoSchedule
             dataGridViewCellStyle2.Format = "t";
             dataGridViewCellStyle2.NullValue = null;
             this.dgvDay.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvDay.RowTemplate.Height = 10;
+            this.dgvDay.RowTemplate.Height = 15;
             this.dgvDay.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvDay.Size = new System.Drawing.Size(868, 912);
+            this.dgvDay.Size = new System.Drawing.Size(868, 978);
             this.dgvDay.TabIndex = 0;
             // 
             // eventCol1
             // 
-            this.eventCol1.HeaderText = "Events";
+            this.eventCol1.HeaderText = "";
             this.eventCol1.Name = "eventCol1";
             this.eventCol1.ReadOnly = true;
             this.eventCol1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
