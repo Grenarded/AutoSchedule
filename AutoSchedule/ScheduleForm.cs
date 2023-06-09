@@ -28,7 +28,11 @@ namespace AutoSchedule
 
         List<UserControlEvent> events;
 
+        //track start and end rows (inner array) of each event (represented by each main array index)
         private int[][] eventRows;
+
+        //track the event list index of the last event in each column
+        private List<int> lastColEvent = new List<int>();
 
         public ScheduleForm()
         {
@@ -75,7 +79,7 @@ namespace AutoSchedule
             {
                 eventRows[i][0] = ((events[i].GetTimeStart().Hours * MINUTES_IN_HOUR + events[i].GetTimeStart().Minutes) / MINUTE_INTERVAL);
                 eventRows[i][1] = ((events[i].GetTimeEnd().Hours * MINUTES_IN_HOUR + events[i].GetTimeEnd().Minutes) / MINUTE_INTERVAL);
-                //MessageBox.Show("Start row: " + eventRows[i][0] + "\nEnd row: " + eventRows[i][1]);
+                MessageBox.Show("Start row: " + eventRows[i][0] + "\nEnd row: " + eventRows[i][1]);
             }
 
             LayoutEventBlocks();
@@ -122,14 +126,33 @@ namespace AutoSchedule
         //DOESN'T WORK
         private void LayoutEventBlocks()
         {
-            int maxCol;//= dgvDay.Columns.Count;
             for (int i = 0; i < events.Count; i++)
             {
-                maxCol = dgvDay.Columns.Count; 
-
                 int col = 0;
                 if (i > 0)
                 {
+                    col = -1;
+                    for (int j = 0; j < lastColEvent.Count; j++)
+                    {
+                        MessageBox.Show("" + lastColEvent[j] + "\n" + eventRows[lastColEvent[j]][START_ROW] + " >= " + eventRows[j][START_ROW] + " AND " + eventRows[i][START_ROW] + " <= " + eventRows[lastColEvent[j]][END_ROW]
+                            + "\nOR\n" + eventRows[lastColEvent[j]][START_ROW] + " >= " + eventRows[i][START_ROW] + " AND " + eventRows[lastColEvent[j]][START_ROW] + " <= " + eventRows[i][END_ROW]);
+                        if ((eventRows[i][START_ROW] >= eventRows[lastColEvent[j]][START_ROW] && eventRows[i][START_ROW] <= eventRows[lastColEvent[j]][END_ROW])
+                            || (eventRows[lastColEvent[j]][START_ROW] >= eventRows[i][START_ROW] && eventRows[lastColEvent[j]][START_ROW] <= eventRows[i][END_ROW]))
+                        {
+                            
+                        }
+                        else
+                        {
+                            col = j;
+                            lastColEvent[col] = i;
+                            break;
+                        }
+                    }
+                    if (col == -1)
+                    {
+                        col = lastColEvent.Count;
+                        lastColEvent.Add(i);
+                    }
                     /*
                     for (int j = 0; j < i; j++)
                     {
@@ -147,24 +170,8 @@ namespace AutoSchedule
                     }
                     */
                     //TODO: FIX
-                        //Idea: Work the way backwards. Keep track of which columns work and which don't. The last column to work is the column to set it to
-                    col = maxCol;
-                    int prevGoodCol = col;
-                    for (int j = i; j > 0; j--)
-                    {
-                        j--;
-                        if (!(eventRows[i][START_ROW] >= eventRows[j][START_ROW] && eventRows[i][START_ROW] <= eventRows[j][END_ROW])
-                            || !(eventRows[j][START_ROW] >= eventRows[i][START_ROW] && eventRows[j][START_ROW] <= eventRows[i][END_ROW]))
-                        {
-                            col--;
-                            prevGoodCol = col;
-                        }
-                        else
-                        {
-                            col--;
-                        }
-                    }
-                    DrawEventBlock(prevGoodCol, eventRows[i][START_ROW], eventRows[i][END_ROW]);
+                    
+                    DrawEventBlock(col, eventRows[i][START_ROW], eventRows[i][END_ROW]);
                     
 
                     /*
@@ -180,6 +187,7 @@ namespace AutoSchedule
                 }
                 else
                 {
+                    lastColEvent.Add(col);
                     DrawEventBlock(col, eventRows[i][START_ROW], eventRows[i][END_ROW]);
                     //AddColumn();
                 }
