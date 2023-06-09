@@ -98,16 +98,8 @@ namespace AutoSchedule
                     UserControlEvent ucEvent = new UserControlEvent(events[i].GetDate(), events[i].GetTimeStart(), events[i].GetTimeEnd(), events[i].GetEventName());
                     flpEvents.Controls.Add(ucEvent);
                 }
-                int remainingEvents = events.Count - MAX_EVENTS_DISPLAYED;
-
-                if (remainingEvents > 1)
-                {
-                    lblMaxEvents.Text = "+ " + remainingEvents + " More Events";
-                }
-                else
-                {
-                    lblMaxEvents.Text = "+ " + remainingEvents + " More Event";
-                }
+                int remainingEvents = events.Count - MAX_EVENTS_DISPLAYED + 1;
+                lblMaxEvents.Text = "+ " + remainingEvents + " More Events";
                 lblMaxEvents.Visible = true;
                 //DisplayMaxLabel();
             }
