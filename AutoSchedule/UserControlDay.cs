@@ -145,9 +145,6 @@ namespace AutoSchedule
                     index++;
                     if (eventsList[index].GetDateAndTimeStart() == searchEvent.GetDateAndTimeStart())
                     {
-                       // MessageBox.Show("Found event - End time: " + foundEvent.GetTimeEnd() + " Name: " + foundEvent.GetEventName()
-                       //     + "\nCompare event - End time: " + eventsList[index].GetTimeEnd() + "Name: " + eventsList[index].GetEventName());
-
                         if (searchEvent.GetTimeEnd() == eventsList[index].GetTimeEnd() && searchEvent.GetEventName() == eventsList[index].GetEventName())
                         {
                             return index;
@@ -172,7 +169,7 @@ namespace AutoSchedule
             return listIndex;
         }
 
-        public int BinarySearchSpecific(List<UserControlEvent> events, DateTime dateTimeStart, int low, int high)
+        private int BinarySearchSpecific(List<UserControlEvent> events, DateTime dateTimeStart, int low, int high)
         {
             if (low > high)
             {

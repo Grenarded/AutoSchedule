@@ -32,12 +32,15 @@ namespace AutoSchedule
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScheduleForm));
             this.dgvDay = new System.Windows.Forms.DataGridView();
             this.eventCol1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblDate = new System.Windows.Forms.Label();
             this.btnPrevDay = new System.Windows.Forms.Button();
             this.btnNextDay = new System.Windows.Forms.Button();
             this.ttEventInfo = new System.Windows.Forms.ToolTip(this.components);
+            this.btnCalView = new System.Windows.Forms.Button();
+            this.ttCalView = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDay)).BeginInit();
             this.SuspendLayout();
             // 
@@ -120,17 +123,34 @@ namespace AutoSchedule
             // 
             this.ttEventInfo.ToolTipTitle = "Event Information";
             // 
+            // btnCalView
+            // 
+            this.btnCalView.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCalView.BackgroundImage")));
+            this.btnCalView.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnCalView.Location = new System.Drawing.Point(22, 6);
+            this.btnCalView.Name = "btnCalView";
+            this.btnCalView.Size = new System.Drawing.Size(40, 40);
+            this.btnCalView.TabIndex = 18;
+            this.btnCalView.UseVisualStyleBackColor = true;
+            this.btnCalView.Click += new System.EventHandler(this.btnCalView_Click);
+            // 
+            // ttCalView
+            // 
+            this.ttCalView.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            // 
             // ScheduleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1132, 1033);
+            this.Controls.Add(this.btnCalView);
             this.Controls.Add(this.lblDate);
             this.Controls.Add(this.btnPrevDay);
             this.Controls.Add(this.btnNextDay);
             this.Controls.Add(this.dgvDay);
             this.Name = "ScheduleForm";
             this.Text = "ScheduleForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ScheduleForm_FormClosed);
             this.Load += new System.EventHandler(this.ScheduleForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDay)).EndInit();
             this.ResumeLayout(false);
@@ -145,5 +165,7 @@ namespace AutoSchedule
         private System.Windows.Forms.Button btnPrevDay;
         private System.Windows.Forms.Button btnNextDay;
         private System.Windows.Forms.ToolTip ttEventInfo;
+        private System.Windows.Forms.Button btnCalView;
+        private System.Windows.Forms.ToolTip ttCalView;
     }
 }

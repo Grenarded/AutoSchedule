@@ -35,9 +35,11 @@ namespace AutoSchedule
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //TODO: calendar doesn't update for the next year
             monthNum = DateTime.Now.Month;
             yearNum = DateTime.Now.Year;
+
+            //Clear events if form is being loaded again (from schedule view)
+            allEvents.Clear();
 
             ReadEvents();
 
@@ -166,7 +168,6 @@ namespace AutoSchedule
             UserControlDay day = year.GetMonth(deleteEvent.GetDate().Month).GetDay(deleteEvent.GetDate().Day);
 
             day.DeleteEvent(deleteEvent);
-            //allEvents.RemoveAt(day.BinarySearchSpecific(allEvents, deleteEvent.GetDateAndTimeStart(), 0, allEvents.Count));
             allEvents.RemoveAt(day.SearchEvent(allEvents, deleteEvent));
         }
 
@@ -243,33 +244,8 @@ namespace AutoSchedule
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Form form = new ScheduleForm(year.GetMonth(DateTime.Now.Month).GetDay(DateTime.Now.Day));
-            //form.Location = Location;
-            //form.StartPosition = FormStartPosition.Manual;
-            //form.FormClosing += delegate { Show(); };
-            //form.Show();
-            //Hide();
-            //try
-            //{
-            //    outFile = File.CreateText("sorted.txt");
-
-            //    for (int i = 0; i < allEvents.Count; i++)
-            //    {
-            //        outFile.WriteLine(allEvents[i].GetDate() + "," + allEvents[i].GetTimeStart() + "," + allEvents[i].GetTimeEnd() + "," + allEvents[i].GetEventName());
-            //    }
-            //}
-            //catch
-            //{
-
-            //}
-            //finally
-            //{
-            //    if (outFile != null)
-            //    {
-            //        outFile.Close();
-            //    }
-            //}
         }
+        //
 
         private void btnAddEvent_Click(object sender, EventArgs e)
         {
@@ -278,14 +254,12 @@ namespace AutoSchedule
 
         private void btnDailyView_Click(object sender, EventArgs e)
         {
-            //Fix displays with this
             Form form = new ScheduleForm(activeDay, monthNum, yearNum);
             form.Location = Location;
             form.StartPosition = FormStartPosition.Manual;
-            form.FormClosing += delegate { Show(); };
+            form.FormClosing += delegate { Close(); };
             form.Show();
             Hide();
         }
-        //
     }
 }

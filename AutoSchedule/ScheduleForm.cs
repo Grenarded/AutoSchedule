@@ -81,6 +81,8 @@ namespace AutoSchedule
 
         private void ScheduleForm_Load(object sender, EventArgs e)
         {
+            ttCalView.SetToolTip(btnCalView, "Calendar View");
+
             dgvDay.CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical;
 
             numRows = DAY_HOURS * MINUTES_IN_HOUR / MINUTE_INTERVAL;
@@ -276,6 +278,21 @@ namespace AutoSchedule
                                     this, PointToClient(formLocation));
                 }
             }
+        }
+
+        private void ScheduleForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            
+        }
+
+        private void btnCalView_Click(object sender, EventArgs e)
+        {
+            Form form = new Form1();
+            form.Location = Location;
+            form.StartPosition = FormStartPosition.Manual;
+            form.FormClosing += delegate { Close(); };
+            form.Show();
+            Hide();
         }
     }
 }

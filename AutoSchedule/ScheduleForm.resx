@@ -123,4 +123,26 @@
   <metadata name="ttEventInfo.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnCalView.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        xAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAKxSURBVFhH7Zg9
+        j3FREMeFQmG3U/kMFBobhY1KgcbrFoIPIFnJKr2/JLZbCqFRKAkaH0CzWt9CgiDxEgpinswkbqx149zD
+        TbZ4TnKKe/3N+Z2ZOWMOBfyxoRDjORwOsFqtYD6f34Us1Y4o0Pf3N3i9XtDr9XcBSbUjCtTr9UClUoFC
+        ISphApVq58dqy+USKpUKZLNZCIVCoFarCejr6wvS6bTkWSgUftlJJpPQbrdFNyMAjUYjcDqdBCD31Gg0
+        tPFrQwCq1+sCiM1mg9fXV1AqlfQuEomAy+UCt9staQYCATCbzULoo9Eo2O12solQnU7nFxMBrddr8Hg8
+        JPz4+CBRt9uFp6cnIYdQI3Uej0da9Pn5WbAzHo/B4XDQcyqVug602Wxo5yjK5XIkQpeeQseUvSKiSzu7
+        3Q78fj/Zxry8HOQhBDp5CBNazoFAPp+PgDKZzG2gRCJBIqnhYdFvt1uYTqeCh5iAjEYjBINBriS+lfQY
+        BfSOTqdj95DcR/7cPpOHrFYrFItFyUWQpXAiQDweB4wCcw59fn7KmdNkOxwOswNdcyMa2e/3MBgMoFqt
+        wnA4JMNY3ZvNJpRKJXpm0ZyfaKaQiQFhK3I6rvgbhaPVaoFWqxWKHovmYUCz2QwMBgMt/v7+TkDlcvlH
+        8WTRPAzoUYnFDXSt08PCtlgsAKstDh4NNxAm8HnHiDBYDkwmEzQaDQLi0XAD1Wq1H/mBnnl5eaF3sViM
+        gHg03EB4tPP5vJDAGCb0DLYn/X6fgHg03ECPSuJLO9xAPEWPZRPcQDxFT1YgnqL3UKDLFpbFOI+GqYW9
+        bPKx4GGsWbpAKRqEmUwmt5t83On5NchiscDb25ukK8+tbhE/x+ae6RqEQH/uoohQp6s0NvosHSCPBu9i
+        TFdpngSV4zv3/bUhA9F/oFtO/QcmIu8FGJ1nWwAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <metadata name="ttCalView.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>128, 17</value>
+  </metadata>
 </root>
