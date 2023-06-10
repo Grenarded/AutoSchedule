@@ -114,21 +114,6 @@ namespace AutoSchedule
             }
         }
 
-        private void DisplayMaxLabel()
-        {
-            Label lblMaxEvents = new Label();
-            lblMaxEvents.SuspendLayout();
-
-            lblMaxEvents.Dock = DockStyle.Fill;
-            lblMaxEvents.Location = new Point(100, 200);
-            //lblMaxEvents.Location = new Point(flpEvents.Controls[flpEvents.Controls.Count - 1].Location.X, flpEvents.Controls[flpEvents.Controls.Count - 1].Location.Y + 5);
-            lblMaxEvents.Name = "lblMaxEvents";
-            lblMaxEvents.Size = new Size(139, 20);
-            //lblMaxEvents.TabIndex = 0;
-            lblMaxEvents.Text = "Test";
-            lblMaxEvents.TextAlign = ContentAlignment.MiddleCenter;
-        }
-
         public void AddEvent(UserControlEvent newEvent)
         {
             InsertionSort(events, newEvent);

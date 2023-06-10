@@ -29,10 +29,15 @@ namespace AutoSchedule
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvDay = new System.Windows.Forms.DataGridView();
             this.eventCol1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblDate = new System.Windows.Forms.Label();
+            this.btnPrevDay = new System.Windows.Forms.Button();
+            this.btnNextDay = new System.Windows.Forms.Button();
+            this.ttEventInfo = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDay)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,27 +51,30 @@ namespace AutoSchedule
             this.dgvDay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.eventCol1});
-            this.dgvDay.Location = new System.Drawing.Point(124, 43);
+            this.dgvDay.Location = new System.Drawing.Point(139, 55);
             this.dgvDay.MultiSelect = false;
             this.dgvDay.Name = "dgvDay";
             this.dgvDay.ReadOnly = true;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDay.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDay.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvDay.RowHeadersWidth = 70;
             this.dgvDay.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.Format = "t";
-            dataGridViewCellStyle2.NullValue = null;
-            this.dgvDay.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.Format = "t";
+            dataGridViewCellStyle4.NullValue = null;
+            this.dgvDay.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvDay.RowTemplate.Height = 15;
             this.dgvDay.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvDay.Size = new System.Drawing.Size(868, 978);
+            this.dgvDay.Size = new System.Drawing.Size(863, 972);
             this.dgvDay.TabIndex = 0;
+            this.dgvDay.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDay_CellMouseEnter);
+            this.dgvDay.MouseHover += new System.EventHandler(this.dgvDay_MouseHover);
             // 
             // eventCol1
             // 
@@ -76,11 +84,50 @@ namespace AutoSchedule
             this.eventCol1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.eventCol1.Width = 860;
             // 
+            // lblDate
+            // 
+            this.lblDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDate.Location = new System.Drawing.Point(475, 19);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(212, 28);
+            this.lblDate.TabIndex = 13;
+            this.lblDate.Text = "DATE MONTH YEAR";
+            this.lblDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnPrevDay
+            // 
+            this.btnPrevDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrevDay.Location = new System.Drawing.Point(427, 18);
+            this.btnPrevDay.Name = "btnPrevDay";
+            this.btnPrevDay.Size = new System.Drawing.Size(42, 31);
+            this.btnPrevDay.TabIndex = 12;
+            this.btnPrevDay.Text = "<";
+            this.btnPrevDay.UseVisualStyleBackColor = true;
+            this.btnPrevDay.Click += new System.EventHandler(this.btnPrevDay_Click);
+            // 
+            // btnNextDay
+            // 
+            this.btnNextDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNextDay.Location = new System.Drawing.Point(693, 18);
+            this.btnNextDay.Name = "btnNextDay";
+            this.btnNextDay.Size = new System.Drawing.Size(42, 31);
+            this.btnNextDay.TabIndex = 11;
+            this.btnNextDay.Text = ">";
+            this.btnNextDay.UseVisualStyleBackColor = true;
+            this.btnNextDay.Click += new System.EventHandler(this.btnNextDay_Click);
+            // 
+            // ttEventInfo
+            // 
+            this.ttEventInfo.ToolTipTitle = "Event Information";
+            // 
             // ScheduleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1132, 1033);
+            this.Controls.Add(this.lblDate);
+            this.Controls.Add(this.btnPrevDay);
+            this.Controls.Add(this.btnNextDay);
             this.Controls.Add(this.dgvDay);
             this.Name = "ScheduleForm";
             this.Text = "ScheduleForm";
@@ -94,5 +141,9 @@ namespace AutoSchedule
 
         private System.Windows.Forms.DataGridView dgvDay;
         private System.Windows.Forms.DataGridViewTextBoxColumn eventCol1;
+        private System.Windows.Forms.Label lblDate;
+        private System.Windows.Forms.Button btnPrevDay;
+        private System.Windows.Forms.Button btnNextDay;
+        private System.Windows.Forms.ToolTip ttEventInfo;
     }
 }

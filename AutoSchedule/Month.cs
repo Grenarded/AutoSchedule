@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace AutoSchedule
 {
-    class Month
+    public class Month
     {
        // private UserControlDay[] days; //necessary w/ the Controls?
         private int monthNum;

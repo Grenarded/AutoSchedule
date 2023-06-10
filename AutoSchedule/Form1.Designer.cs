@@ -177,6 +177,11 @@ namespace AutoSchedule
             this.ttAddEvent.AutoPopDelay = 2000;
             this.ttAddEvent.InitialDelay = 100;
             this.ttAddEvent.ReshowDelay = 20;
+            this.ttAddEvent.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            // 
+            // ttDailyView
+            // 
+            this.ttDailyView.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
             // btnAddEvent
             // 

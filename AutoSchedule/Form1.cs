@@ -18,14 +18,13 @@ namespace AutoSchedule
         public const string EVENT_FILE = "Events.txt";
 
         StreamReader inFile;
-        //StreamWriter outFile;
 
         public static List<UserControlEvent> allEvents = new List<UserControlEvent>();
 
         public static int yearNum { get; private set; }
         public static int monthNum { get; private set; }
-
-        private static Year year;
+        
+        public static Year year { get; private set; }
 
         public static UserControlDay activeDay;
 
@@ -279,7 +278,7 @@ namespace AutoSchedule
         private void btnDailyView_Click(object sender, EventArgs e)
         {
             //Fix displays with this
-            Form form = new ScheduleForm(activeDay);
+            Form form = new ScheduleForm(activeDay, monthNum, yearNum);
             form.Location = Location;
             form.StartPosition = FormStartPosition.Manual;
             form.FormClosing += delegate { Show(); };
