@@ -30,8 +30,8 @@ namespace AutoSchedule
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvDay = new System.Windows.Forms.DataGridView();
             this.eventCol1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblDate = new System.Windows.Forms.Label();
@@ -51,27 +51,27 @@ namespace AutoSchedule
             this.dgvDay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.eventCol1});
-            this.dgvDay.Location = new System.Drawing.Point(139, 55);
+            this.dgvDay.Location = new System.Drawing.Point(124, 52);
             this.dgvDay.MultiSelect = false;
             this.dgvDay.Name = "dgvDay";
             this.dgvDay.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDay.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDay.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvDay.RowHeadersWidth = 70;
             this.dgvDay.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.Format = "t";
-            dataGridViewCellStyle4.NullValue = null;
-            this.dgvDay.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Format = "t";
+            dataGridViewCellStyle2.NullValue = null;
+            this.dgvDay.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvDay.RowTemplate.Height = 15;
             this.dgvDay.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvDay.Size = new System.Drawing.Size(863, 972);
+            this.dgvDay.Size = new System.Drawing.Size(931, 972);
             this.dgvDay.TabIndex = 0;
             this.dgvDay.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDay_CellMouseEnter);
             this.dgvDay.MouseHover += new System.EventHandler(this.dgvDay_MouseHover);
@@ -87,7 +87,7 @@ namespace AutoSchedule
             // lblDate
             // 
             this.lblDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDate.Location = new System.Drawing.Point(475, 19);
+            this.lblDate.Location = new System.Drawing.Point(475, 16);
             this.lblDate.Name = "lblDate";
             this.lblDate.Size = new System.Drawing.Size(212, 28);
             this.lblDate.TabIndex = 13;
@@ -97,7 +97,7 @@ namespace AutoSchedule
             // btnPrevDay
             // 
             this.btnPrevDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrevDay.Location = new System.Drawing.Point(427, 18);
+            this.btnPrevDay.Location = new System.Drawing.Point(427, 15);
             this.btnPrevDay.Name = "btnPrevDay";
             this.btnPrevDay.Size = new System.Drawing.Size(42, 31);
             this.btnPrevDay.TabIndex = 12;
@@ -108,7 +108,7 @@ namespace AutoSchedule
             // btnNextDay
             // 
             this.btnNextDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNextDay.Location = new System.Drawing.Point(693, 18);
+            this.btnNextDay.Location = new System.Drawing.Point(693, 15);
             this.btnNextDay.Name = "btnNextDay";
             this.btnNextDay.Size = new System.Drawing.Size(42, 31);
             this.btnNextDay.TabIndex = 11;

@@ -39,6 +39,12 @@ namespace AutoSchedule
         private void EventForm_Load(object sender, EventArgs e)
         {
             datePicker.Value = date;
+
+            if (!IsEndTimeValid())
+            {
+                lblEndTimeError.Visible = true;
+                btnSave.Enabled = false;
+            }
         }
 
         protected void SetDate(DateTime date)

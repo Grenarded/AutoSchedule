@@ -256,19 +256,7 @@ namespace AutoSchedule
         
         private void dgvDay_MouseHover(object sender, EventArgs e)
         {
-            /*
-            var p = this.dgvDay.PointToClient(Cursor.Position);
-            var info = this.dgvDay.HitTest(p.X, p.Y);
 
-            if (info.RowIndex >= 0 && info.RowIndex < numRows && info.ColumnIndex >= 0 && info.ColumnIndex < dgvDay.Columns.Count)
-            {
-                if (dgvDay.Rows[info.RowIndex].Cells[info.ColumnIndex].Style.BackColor == HEADER_COLOR
-                    || dgvDay.Rows[info.RowIndex].Cells[info.ColumnIndex].Style.BackColor == EVENT_COLOR)
-                {
-                    MessageBox.Show("Tippe!");
-                }
-            }
-            */
         }
         
 

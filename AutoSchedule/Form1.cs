@@ -166,7 +166,8 @@ namespace AutoSchedule
             UserControlDay day = year.GetMonth(deleteEvent.GetDate().Month).GetDay(deleteEvent.GetDate().Day);
 
             day.DeleteEvent(deleteEvent);
-            allEvents.RemoveAt(day.BinarySearchSpecific(allEvents, deleteEvent.GetDateAndTimeStart(), 0, allEvents.Count));
+            //allEvents.RemoveAt(day.BinarySearchSpecific(allEvents, deleteEvent.GetDateAndTimeStart(), 0, allEvents.Count));
+            allEvents.RemoveAt(day.SearchEvent(allEvents, deleteEvent));
         }
 
         private void DisplayDates()

@@ -123,9 +123,53 @@ namespace AutoSchedule
 
         public void DeleteEvent(UserControlEvent deleteEvent)
         {
-            events.RemoveAt(BinarySearchSpecific(events, deleteEvent.GetDateAndTimeStart(), 0, events.Count));
+            events.RemoveAt(SearchEvent(events, deleteEvent));
+            //events.RemoveAt(BinarySearchSpecific(events, deleteEvent.GetDateAndTimeStart(), 0, events.Count));
             flpEvents.Controls.Clear();
             AddEvents();
+        }
+
+        public int SearchEvent(List<UserControlEvent> eventsList, UserControlEvent searchEvent)
+        {
+            int eventIndex = BinarySearchSpecific(eventsList, searchEvent.GetDateAndTimeStart(), 0, eventsList.Count);
+            return VerifySearchEvent(eventsList, searchEvent, eventsList[eventIndex], eventIndex);
+        }
+
+        private int VerifySearchEvent(List<UserControlEvent> eventsList, UserControlEvent searchEvent, UserControlEvent foundEvent, int listIndex)
+        {
+            if (searchEvent.GetTimeEnd() != foundEvent.GetTimeEnd() || searchEvent.GetEventName() != foundEvent.GetEventName())
+            {
+                int index = listIndex;
+                while (index+1 < eventsList.Count)
+                {
+                    index++;
+                    if (eventsList[index].GetDateAndTimeStart() == searchEvent.GetDateAndTimeStart())
+                    {
+                       // MessageBox.Show("Found event - End time: " + foundEvent.GetTimeEnd() + " Name: " + foundEvent.GetEventName()
+                       //     + "\nCompare event - End time: " + eventsList[index].GetTimeEnd() + "Name: " + eventsList[index].GetEventName());
+
+                        if (searchEvent.GetTimeEnd() == eventsList[index].GetTimeEnd() && searchEvent.GetEventName() == eventsList[index].GetEventName())
+                        {
+                            return index;
+                        }
+                    }
+                }
+
+                index = listIndex;
+                while (index-1 >= 0)
+                {
+                    index--;
+                    if (eventsList[index].GetDateAndTimeStart() == searchEvent.GetDateAndTimeStart())
+                    {
+                        if (searchEvent.GetTimeEnd() == eventsList[index].GetTimeEnd() && searchEvent.GetEventName() == eventsList[index].GetEventName())
+                        {
+                            return index;
+                        }
+                    }
+                }
+            }
+
+            return listIndex;
         }
 
         public int BinarySearchSpecific(List<UserControlEvent> events, DateTime dateTimeStart, int low, int high)
