@@ -310,6 +310,15 @@ namespace AutoSchedule
         private void lblMaxEvents_Click(object sender, EventArgs e)
         {
             HighlightDay();
+
+            //TODO: pass in remaining events
+            List<UserControlEvent> remainingEventsList = new List<UserControlEvent>();
+            for (int i = events.Count - remainingEvents; i < events.Count; i++)
+            {
+                remainingEventsList.Add(events[i]);
+            }
+            EventEditForm eventEditForm = new EventEditForm(remainingEventsList);
+            eventEditForm.ShowDialog();
         }
 
         private void lblMaxEvents_MouseHover(object sender, EventArgs e)

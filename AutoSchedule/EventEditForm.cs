@@ -15,6 +15,9 @@ namespace AutoSchedule
         private TimeSpan originalTimeStart;
         private TimeSpan originalTimeEnd;
         private string originalEventName;
+
+        List<UserControlEvent> comboEvents;
+
         public EventEditForm() : base()
         {
             InitializeComponent();
@@ -23,6 +26,28 @@ namespace AutoSchedule
         public EventEditForm(UserControlEvent selectedEvent) : base()
         {
             InitializeComponent();
+            SetAllValues(selectedEvent);
+            
+        }
+
+        public EventEditForm(List<UserControlEvent> comboEvents)
+        {
+            InitializeComponent();
+            this.comboEvents = comboEvents;
+            gbEventSelection.Visible = true;
+
+            foreach (UserControlEvent comboEvent in comboEvents)
+            {
+                cbMoreEvents.Items.Add(comboEvent.GetEventName());
+            }
+
+            cbMoreEvents.SelectedIndex = 0;
+
+            SetAllValues(comboEvents[cbMoreEvents.SelectedIndex]);
+        }
+
+        private void SetAllValues(UserControlEvent selectedEvent)
+        {
             date = selectedEvent.GetDate();
             timeStart = selectedEvent.GetTimeStart();
             timeEnd = selectedEvent.GetTimeEnd();
@@ -96,6 +121,11 @@ namespace AutoSchedule
                     outFile.Close();
                 }
             }
+        }
+
+        private void cbMoreEvents_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetAllValues(comboEvents[cbMoreEvents.SelectedIndex]);
         }
     }
 }

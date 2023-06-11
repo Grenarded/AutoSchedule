@@ -12,5 +12,4 @@ C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.csproj.Gen
 C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.csproj.CoreCompileInputs.cache
 C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.exe
 C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.pdb
-C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.DayExpandControl.resources
-C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.DayForm.resources
+C:\Users\Ben\Desktop\AutoSchedule\AutoSchedule\obj\Debug\AutoSchedule.csproj.AssemblyReference.cache
