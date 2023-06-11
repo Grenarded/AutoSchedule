@@ -91,8 +91,6 @@ namespace AutoSchedule
 
         private void AddEvents()
         {
-            //TODO: when reading in event times, round to the nearest 5 mins
-            //DOESN'T WORK. THE 15th STILL DISPLAYS ALL EVENTS
             if (events.Count > MAX_EVENTS_DISPLAYED)
             {
                 for (int i = 0; i < MAX_EVENTS_DISPLAYED - 1; i++)
@@ -332,7 +330,10 @@ namespace AutoSchedule
                 {
                     eventsInfo += "\n\n";
                 }
-                eventsInfo += "Title: " + events[i].GetEventName() + "\nStart Time: " + events[i].GetTimeStart() + "\nEnd Time: " + events[i].GetTimeEnd();
+                DateTime timeStart = DateTime.Today.Add(events[i].GetTimeStart());
+                DateTime timeEnd = DateTime.Today.Add(events[i].GetTimeEnd());
+
+                eventsInfo += "Title: " + events[i].GetEventName() + "\nStart Time: " + timeStart.ToString("hh:mm tt") + "\nEnd Time: " + timeEnd.ToString("hh:mm tt");
             }
 
             ttMoreEvents.SetToolTip(lblMaxEvents, eventsInfo);

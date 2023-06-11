@@ -75,7 +75,9 @@ namespace AutoSchedule
         private void lblEventName_MouseHover(object sender, EventArgs e)
         {
             Cursor = Cursors.Hand;
-            ttEventInfo.SetToolTip(lblEventName, "Start Time: " + GetTimeStart() + "\nEnd Time: " + GetTimeEnd());
+            DateTime timeStart = DateTime.Today.Add(GetTimeStart());
+            DateTime timeEnd = DateTime.Today.Add(GetTimeEnd());
+            ttEventInfo.SetToolTip(lblEventName, "Start Time: " + timeStart.ToString("hh:mm tt") + "\nEnd Time: " + timeEnd.ToString("hh:mm tt"));
         }
     }
 }

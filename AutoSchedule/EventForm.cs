@@ -62,20 +62,21 @@ namespace AutoSchedule
                 {
                     btnSave.Enabled = true;
                 }
-
-                if (isTimeStart)
-                {
-                    timeStart = time;
-                }
-                else
-                {
-                    timeEnd = time;
-                }
             }
             else
             {
                 lblEndTimeError.Visible = true;
                 btnSave.Enabled = false;
+            }
+
+            //Update start and end times
+            if (isTimeStart)
+            {
+                timeStart = time;
+            }
+            else
+            {
+                timeEnd = time;
             }
         }
 
@@ -120,9 +121,13 @@ namespace AutoSchedule
 
                 outFile.WriteLine(dateOnly + "," + timeStart + "," + timeEnd + "," + txtEvent.Text);
             }
-            catch
+            catch(FileNotFoundException fnf)
             {
-                //TODO: window pop up?
+                MessageBox.Show(fnf.Message, "Event Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message, "Event Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {

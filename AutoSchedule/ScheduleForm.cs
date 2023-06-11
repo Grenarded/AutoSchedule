@@ -218,12 +218,15 @@ namespace AutoSchedule
         {
             if (day.GetDayNum() + 1 > DateTime.DaysInMonth(curYear, curMonth))
             {
-                curMonth++;
-                if (curMonth > Year.MONTHS_IN_YEAR)
+                if (curMonth + 1 < Year.MONTHS_IN_YEAR)
                 {
-                    //TODO
+                    curMonth++;
+                    if (curMonth > Year.MONTHS_IN_YEAR)
+                    {
+                        //TODO
+                    }
+                    day = Form1.year.GetMonth(curMonth).GetDay(1);
                 }
-                day = Form1.year.GetMonth(curMonth).GetDay(1);
             }
             else
             {
@@ -236,12 +239,15 @@ namespace AutoSchedule
         {
             if (day.GetDayNum() - 1 < 1)
             {
-                curMonth--;
-                if (curMonth > 0)
+                if (curMonth - 1 >= 0)
                 {
-                    //TODO
+                    curMonth--;
+                    if (curMonth < 0)
+                    {
+                        //TODO
+                    }
+                    day = Form1.year.GetMonth(curMonth).GetDay(DateTime.DaysInMonth(curYear, curMonth));
                 }
-                day = Form1.year.GetMonth(curMonth).GetDay(DateTime.DaysInMonth(curYear, curMonth));
             }
             else
             {
@@ -272,9 +278,14 @@ namespace AutoSchedule
                     // Get mouse position on the form
                     Point formLocation = Control.MousePosition;
 
+                    //Get DateTime values of time spans so that they can be formatted into 12-hour format
+                    DateTime timeStart = DateTime.Today.Add(events[(int)activeCell.Tag].GetTimeStart());
+                    DateTime timeEnd = DateTime.Today.Add(events[(int)activeCell.Tag].GetTimeEnd());
+
+                    //Display tool tip with event information
                     ttEventInfo.Show("Title: " + events[(int)activeCell.Tag].GetEventName()
-                                    + "\nStart Time: " + events[(int)activeCell.Tag].GetTimeStart()
-                                    + "\nEnd Time: " + events[(int)activeCell.Tag].GetTimeEnd(), 
+                                    + "\nStart Time: " + timeStart.ToString("hh:mm tt")
+                                    + "\nEnd Time: " + timeEnd.ToString("hh:mm tt"),
                                     this, PointToClient(formLocation));
                 }
             }
