@@ -54,6 +54,8 @@ namespace AutoSchedule
             this.ClientSize = new System.Drawing.Size(475, 318);
             this.Controls.Add(this.btnDelete);
             this.Name = "EventEditForm";
+            this.Controls.SetChildIndex(this.btnSave, 0);
+            this.Controls.SetChildIndex(this.lblEndTimeError, 0);
             this.Controls.SetChildIndex(this.txtEvent, 0);
             this.Controls.SetChildIndex(this.timePickerStart, 0);
             this.Controls.SetChildIndex(this.datePicker, 0);

@@ -29,7 +29,9 @@ namespace AutoSchedule
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblEventName = new System.Windows.Forms.Label();
+            this.ttEventInfo = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // lblEventName
@@ -43,6 +45,12 @@ namespace AutoSchedule
             this.lblEventName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblEventName.Click += new System.EventHandler(this.lblEventName_Click);
             this.lblEventName.MouseHover += new System.EventHandler(this.lblEventName_MouseHover);
+            // 
+            // ttEventInfo
+            // 
+            this.ttEventInfo.Tag = "";
+            this.ttEventInfo.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.ttEventInfo.ToolTipTitle = "Event Info";
             // 
             // UserControlEvent
             // 
@@ -60,5 +68,6 @@ namespace AutoSchedule
         #endregion
 
         private System.Windows.Forms.Label lblEventName;
+        private System.Windows.Forms.ToolTip ttEventInfo;
     }
 }

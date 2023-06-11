@@ -50,7 +50,6 @@ namespace AutoSchedule
 
             DisplayDates();
 
-            //TODO: when hovering and they're disabled, change message saying that they must select a day
             ttAddEvent.SetToolTip(btnAddEvent, "Add Event");
             ttDailyView.SetToolTip(btnDailyView, "Daily View");
         }
@@ -64,24 +63,38 @@ namespace AutoSchedule
 
                 inFile = File.OpenText(EVENT_FILE);
 
+                int numErrors = 0;
                 while (!inFile.EndOfStream)
                 {
                     line = inFile.ReadLine();
                     data = line.Split(',');
 
-                    
-                    DateTime date = Convert.ToDateTime(data[0]);
-                    TimeSpan timeStart = TimeSpan.Parse(data[1]);
-                    TimeSpan timeEnd = TimeSpan.Parse(data[2]);
-                    string eventName = data[3];
+                    try
+                    {
+                        DateTime date = Convert.ToDateTime(data[0]);
+                        TimeSpan timeStart = TimeSpan.Parse(data[1]);
+                        TimeSpan timeEnd = TimeSpan.Parse(data[2]);
+                        string eventName = data[3];
 
-                    allEvents.Add(new UserControlEvent(date, timeStart, timeEnd, eventName));
-                    
+                        allEvents.Add(new UserControlEvent(date, timeStart, timeEnd, eventName));
+                    }
+                    catch
+                    {
+                        numErrors++;
+                    }
+                }
+                if (numErrors > 0)
+                {
+                    MessageBox.Show("Unable to load " + numErrors + " event(s)", "Failed Event Load", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            catch
+            catch(FileLoadException fle)
             {
-                //TODO: popup?
+                MessageBox.Show(fle.Message, "File Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message, "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {

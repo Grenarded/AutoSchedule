@@ -46,6 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DayExpandControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DayExpandControl.Designer.cs">
+      <DependentUpon>DayExpandControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DayForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DayForm.Designer.cs">
+      <DependentUpon>DayForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EventEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +98,12 @@
       <DependentUpon>UserControlEvent.cs</DependentUpon>
     </Compile>
     <Compile Include="Year.cs" />
+    <EmbeddedResource Include="DayExpandControl.resx">
+      <DependentUpon>DayExpandControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DayForm.resx">
+      <DependentUpon>DayForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EventEditForm.resx">
       <DependentUpon>EventEditForm.cs</DependentUpon>
     </EmbeddedResource>

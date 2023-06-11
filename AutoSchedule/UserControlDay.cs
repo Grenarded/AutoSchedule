@@ -20,6 +20,8 @@ namespace AutoSchedule
 
         private bool isBlankDay = false;
 
+        int remainingEvents;
+
         public UserControlDay(int dayNum, List<UserControlEvent> events)
         {
             this.dayNum = dayNum;
@@ -98,7 +100,7 @@ namespace AutoSchedule
                     UserControlEvent ucEvent = new UserControlEvent(events[i].GetDate(), events[i].GetTimeStart(), events[i].GetTimeEnd(), events[i].GetEventName());
                     flpEvents.Controls.Add(ucEvent);
                 }
-                int remainingEvents = events.Count - MAX_EVENTS_DISPLAYED + 1;
+                remainingEvents = events.Count - MAX_EVENTS_DISPLAYED + 1;
                 lblMaxEvents.Text = "+ " + remainingEvents + " More Events";
                 lblMaxEvents.Visible = true;
                 //DisplayMaxLabel();
@@ -308,6 +310,28 @@ namespace AutoSchedule
         private void lblMaxEvents_Click(object sender, EventArgs e)
         {
             HighlightDay();
+        }
+
+        private void lblMaxEvents_MouseHover(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Hand;
+
+            string eventsInfo = "";
+            for (int i = events.Count - remainingEvents; i < events.Count; i++)
+            {
+                if (i > events.Count - remainingEvents)
+                {
+                    eventsInfo += "\n\n";
+                }
+                eventsInfo += "Title: " + events[i].GetEventName() + "\nStart Time: " + events[i].GetTimeStart() + "\nEnd Time: " + events[i].GetTimeEnd();
+            }
+
+            ttMoreEvents.SetToolTip(lblMaxEvents, eventsInfo);
+        }
+
+        private void lblMaxEvents_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Default;
         }
     }
 }

@@ -29,9 +29,11 @@ namespace AutoSchedule
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblDayNum = new System.Windows.Forms.Label();
             this.flpEvents = new System.Windows.Forms.FlowLayoutPanel();
             this.lblMaxEvents = new System.Windows.Forms.Label();
+            this.ttMoreEvents = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // lblDayNum
@@ -63,6 +65,13 @@ namespace AutoSchedule
             this.lblMaxEvents.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblMaxEvents.Visible = false;
             this.lblMaxEvents.Click += new System.EventHandler(this.lblMaxEvents_Click);
+            this.lblMaxEvents.MouseLeave += new System.EventHandler(this.lblMaxEvents_MouseLeave);
+            this.lblMaxEvents.MouseHover += new System.EventHandler(this.lblMaxEvents_MouseHover);
+            // 
+            // ttMoreEvents
+            // 
+            this.ttMoreEvents.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.ttMoreEvents.ToolTipTitle = "More Events";
             // 
             // UserControlDay
             // 
@@ -83,8 +92,9 @@ namespace AutoSchedule
 
         #endregion
 
-        private System.Windows.Forms.Label lblDayNum;
-        private System.Windows.Forms.FlowLayoutPanel flpEvents;
-        private System.Windows.Forms.Label lblMaxEvents;
+        protected System.Windows.Forms.Label lblDayNum;
+        protected System.Windows.Forms.FlowLayoutPanel flpEvents;
+        protected System.Windows.Forms.Label lblMaxEvents;
+        protected System.Windows.Forms.ToolTip ttMoreEvents;
     }
 }
