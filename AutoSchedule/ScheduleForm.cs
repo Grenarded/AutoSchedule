@@ -37,7 +37,7 @@ namespace AutoSchedule
         private readonly DateTime START_TIME = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
 
         //Maintain all the events for the day 
-        List<UserControlEvent> events;
+        private List<UserControlEvent> events;
 
         //Maintain original column width
         private int originalColWidth;
@@ -52,14 +52,14 @@ namespace AutoSchedule
         private int numRows;
 
         //Store day
-        UserControlDay day;
+        private UserControlDay day;
 
         //Store year and month ints
-        int curMonth;
+        private int curMonth;
         private int curYear;
 
         //Store parent form
-        Form parentForm;
+        private Form parentForm;
 
         public ScheduleForm()
         {

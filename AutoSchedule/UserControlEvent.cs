@@ -1,4 +1,11 @@
-﻿using System;
+﻿//Author: Ben Petlach
+//File Name: UserControlEvent.cs
+//Project Name: AutoSchedule
+//Creation Date: May 17, 2023
+//Modified Date: June 11, 2023
+//Description: Store and manage a single event and its information 
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,12 +19,14 @@ namespace AutoSchedule
 {
     public partial class UserControlEvent : UserControl
     {
-        DateTime dateAndTimeStart;
-        TimeSpan timeEnd;
-        string eventName;
+        //Store event info
+        private DateTime dateAndTimeStart;
+        private TimeSpan timeEnd;
+        private string eventName;
 
         public UserControlEvent(DateTime date, TimeSpan timeStart, TimeSpan timeEnd, string eventName)
         {
+            //Set the date and time start DateTime
             dateAndTimeStart = new DateTime(date.Year, date.Month, date.Day, timeStart.Hours, timeStart.Minutes, timeStart.Seconds);
 
             this.timeEnd = timeEnd;
@@ -25,6 +34,7 @@ namespace AutoSchedule
 
             InitializeComponent();
 
+            //Display the event name
             DisplayEventName();
         }
 
@@ -53,30 +63,31 @@ namespace AutoSchedule
             return eventName;
         }
 
+        //Pre: None
+        //Post: None
+        //Desc: Updates the event label with the event's name
         private void DisplayEventName()
         {
             lblEventName.Text = eventName;
         }
 
-        private void UserControlEvent_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void lblEventName_Click(object sender, EventArgs e)
         {
-            //EventForm eventEditForm = new EventForm(dateAndTimeStart, this);
-            //eventEditForm.ShowDialog();
-
+            //Show the event edit form
             EventEditForm eventEditForm = new EventEditForm(this);
             eventEditForm.ShowDialog();
         }
 
         private void lblEventName_MouseHover(object sender, EventArgs e)
         {
+            //Change the mouse cursor icon
             Cursor = Cursors.Hand;
+
+            //Create and store DateTimes for the time start and end TimeSpans so AM/PM can be displayed
             DateTime timeStart = DateTime.Today.Add(GetTimeStart());
             DateTime timeEnd = DateTime.Today.Add(GetTimeEnd());
+
+            //Set and display the tooltip with the event's information
             ttEventInfo.SetToolTip(lblEventName, "Start Time: " + timeStart.ToString("hh:mm tt") + "\nEnd Time: " + timeEnd.ToString("hh:mm tt"));
         }
     }

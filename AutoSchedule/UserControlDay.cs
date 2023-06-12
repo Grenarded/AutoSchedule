@@ -29,7 +29,7 @@ namespace AutoSchedule
         private List<UserControlEvent> events = new List<UserControlEvent>();
 
         //Track the remaining events that aren't being displayed when the event max is reached
-        int remainingEvents;
+        private int remainingEvents;
 
         //Check if the day is a blank day or not, where blank day is used as a filler for the flowlayoutpanel before the actual first day of the month starts
         private bool isBlankDay = false;

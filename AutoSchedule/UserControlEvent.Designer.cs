@@ -60,7 +60,6 @@ namespace AutoSchedule
             this.Controls.Add(this.lblEventName);
             this.Name = "UserControlEvent";
             this.Size = new System.Drawing.Size(139, 20);
-            this.Click += new System.EventHandler(this.UserControlEvent_Click);
             this.ResumeLayout(false);
 
         }

@@ -3,8 +3,14 @@
 //Project Name: AutoSchedule
 //Creation Date: May 15, 2023
 //Modified Date: June 12, 2023
-//Description: 
-//TOOD: include implimentation of each main course concept
+//Description: A calendar/scheduling app that displays your events in both a monthly and daily view
+//
+//COURSE CONTENT APPLICATION//
+//2D arrays and lists: use of jagged arrays when constructing daily view, as well as lists to store and manage events
+//File IO: read in events from a file and save them to file, with error handling
+//OOP: its winforms... In all seriousness: a year is composed of months which are composed days which are composed of events. Parent-child relationship with the event add and edit forms
+//Recursion: merge sorting, as well as binary search (for first index, last index, and a specific index)
+//Sorting and Searching: Merge sort (used when reading in unsorted file) and insertion sort (when adding to the sorted list of events after loading the form). Searching is done when deleting events 
 
 using System;
 using System.Collections.Generic;
@@ -31,6 +37,7 @@ namespace AutoSchedule
         //Store all the events throughout the entire calendar
         public static List<UserControlEvent> allEvents = new List<UserControlEvent>();
 
+        //Maintain the current/selected year and month
         public static int yearNum { get; private set; }
         public static int monthNum { get; private set; }
         
@@ -40,7 +47,7 @@ namespace AutoSchedule
         public static UserControlDay activeDay;
 
         //Load schedule view
-        ScheduleForm scheduleForm;
+        private ScheduleForm scheduleForm;
 
         public Form1()
         {
