@@ -57,34 +57,6 @@ namespace AutoSchedule
             return dayNum;
         }
 
-        public void InsertionSort(List<UserControlEvent> eventList, UserControlEvent addedEvent)
-        {
-            //Try in case file was messed with and indices are missing
-            try
-            {
-                eventList.Add(addedEvent);
-
-                if (eventList.Count > 1)
-                {
-                    for (int i = 1; i < eventList.Count; i++)
-                    {
-                        int j = i;
-                        while (j > 0 && eventList[j].GetDateAndTimeStart() < eventList[j - 1].GetDateAndTimeStart())
-                        {
-                            UserControlEvent temp = eventList[j];
-                            eventList[j] = eventList[j - 1];
-                            eventList[j - 1] = temp;
-                            j--;
-                        }
-                    }
-                }
-            }
-            catch
-            {
-                //TODO: popup?
-            }
-        }
-
         private void UserControlDay_Load(object sender, EventArgs e)
         {
         }
@@ -116,7 +88,7 @@ namespace AutoSchedule
 
         public void AddEvent(UserControlEvent newEvent)
         {
-            InsertionSort(events, newEvent);
+            Form1.InsertionSort(events, newEvent);
             flpEvents.Controls.Clear();
             AddEvents();
         }

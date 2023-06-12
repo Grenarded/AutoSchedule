@@ -42,7 +42,6 @@ namespace AutoSchedule
             this.lblThursday = new System.Windows.Forms.Label();
             this.lblSaturday = new System.Windows.Forms.Label();
             this.lblMonthYear = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.ttAddEvent = new System.Windows.Forms.ToolTip(this.components);
             this.ttDailyView = new System.Windows.Forms.ToolTip(this.components);
             this.btnAddEvent = new System.Windows.Forms.Button();
@@ -59,7 +58,7 @@ namespace AutoSchedule
             // btnNextMonth
             // 
             this.btnNextMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNextMonth.Location = new System.Drawing.Point(689, 28);
+            this.btnNextMonth.Location = new System.Drawing.Point(681, 15);
             this.btnNextMonth.Name = "btnNextMonth";
             this.btnNextMonth.Size = new System.Drawing.Size(42, 31);
             this.btnNextMonth.TabIndex = 1;
@@ -70,7 +69,7 @@ namespace AutoSchedule
             // btnPrevMonth
             // 
             this.btnPrevMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrevMonth.Location = new System.Drawing.Point(423, 28);
+            this.btnPrevMonth.Location = new System.Drawing.Point(415, 15);
             this.btnPrevMonth.Name = "btnPrevMonth";
             this.btnPrevMonth.Size = new System.Drawing.Size(42, 31);
             this.btnPrevMonth.TabIndex = 2;
@@ -87,7 +86,6 @@ namespace AutoSchedule
             this.lblSunday.Size = new System.Drawing.Size(85, 25);
             this.lblSunday.TabIndex = 3;
             this.lblSunday.Text = "Sunday";
-            this.lblSunday.Click += new System.EventHandler(this.label1_Click);
             // 
             // lblMonday
             // 
@@ -138,7 +136,6 @@ namespace AutoSchedule
             this.lblThursday.Size = new System.Drawing.Size(102, 25);
             this.lblThursday.TabIndex = 7;
             this.lblThursday.Text = "Thursday";
-            this.lblThursday.Click += new System.EventHandler(this.label5_Click);
             // 
             // lblSaturday
             // 
@@ -153,23 +150,12 @@ namespace AutoSchedule
             // lblMonthYear
             // 
             this.lblMonthYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMonthYear.Location = new System.Drawing.Point(471, 29);
+            this.lblMonthYear.Location = new System.Drawing.Point(463, 16);
             this.lblMonthYear.Name = "lblMonthYear";
             this.lblMonthYear.Size = new System.Drawing.Size(212, 25);
             this.lblMonthYear.TabIndex = 10;
             this.lblMonthYear.Text = "MONTH YEAR";
             this.lblMonthYear.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(274, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // ttAddEvent
             // 
@@ -212,7 +198,6 @@ namespace AutoSchedule
             this.ClientSize = new System.Drawing.Size(1132, 1033);
             this.Controls.Add(this.btnDailyView);
             this.Controls.Add(this.btnAddEvent);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.lblMonthYear);
             this.Controls.Add(this.lblSaturday);
             this.Controls.Add(this.lblFriday);
@@ -246,7 +231,6 @@ namespace AutoSchedule
         private System.Windows.Forms.Label lblThursday;
         private System.Windows.Forms.Label lblSaturday;
         private System.Windows.Forms.Label lblMonthYear;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolTip ttAddEvent;
         private System.Windows.Forms.ToolTip ttDailyView;
         private System.Windows.Forms.Button btnAddEvent;

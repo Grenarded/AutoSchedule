@@ -54,7 +54,7 @@ namespace AutoSchedule
             this.dgvDay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.eventCol1});
-            this.dgvDay.Location = new System.Drawing.Point(124, 52);
+            this.dgvDay.Location = new System.Drawing.Point(112, 52);
             this.dgvDay.MultiSelect = false;
             this.dgvDay.Name = "dgvDay";
             this.dgvDay.ReadOnly = true;
@@ -90,7 +90,7 @@ namespace AutoSchedule
             // lblDate
             // 
             this.lblDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDate.Location = new System.Drawing.Point(475, 16);
+            this.lblDate.Location = new System.Drawing.Point(463, 16);
             this.lblDate.Name = "lblDate";
             this.lblDate.Size = new System.Drawing.Size(212, 28);
             this.lblDate.TabIndex = 13;
@@ -100,7 +100,7 @@ namespace AutoSchedule
             // btnPrevDay
             // 
             this.btnPrevDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrevDay.Location = new System.Drawing.Point(427, 15);
+            this.btnPrevDay.Location = new System.Drawing.Point(415, 15);
             this.btnPrevDay.Name = "btnPrevDay";
             this.btnPrevDay.Size = new System.Drawing.Size(42, 31);
             this.btnPrevDay.TabIndex = 12;
@@ -111,7 +111,7 @@ namespace AutoSchedule
             // btnNextDay
             // 
             this.btnNextDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNextDay.Location = new System.Drawing.Point(693, 15);
+            this.btnNextDay.Location = new System.Drawing.Point(681, 15);
             this.btnNextDay.Name = "btnNextDay";
             this.btnNextDay.Size = new System.Drawing.Size(42, 31);
             this.btnNextDay.TabIndex = 11;
@@ -127,7 +127,7 @@ namespace AutoSchedule
             // 
             this.btnCalView.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCalView.BackgroundImage")));
             this.btnCalView.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnCalView.Location = new System.Drawing.Point(22, 6);
+            this.btnCalView.Location = new System.Drawing.Point(58, 14);
             this.btnCalView.Name = "btnCalView";
             this.btnCalView.Size = new System.Drawing.Size(40, 40);
             this.btnCalView.TabIndex = 18;

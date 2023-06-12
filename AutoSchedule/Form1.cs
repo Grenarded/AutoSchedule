@@ -1,4 +1,12 @@
-﻿using System;
+﻿//Author: Ben Petlach
+//File Name: Form1.cs
+//Project Name: AutoSchedule
+//Creation Date: May 15, 2023
+//Modified Date: June 12, 2023
+//Description: 
+//TOOD: include implimentation of each main course concept
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,8 +25,9 @@ namespace AutoSchedule
         //File IO
         public const string EVENT_FILE = "Events.txt";
 
-        StreamReader inFile;
+        private StreamReader inFile;
 
+        //Store all the events throughout the entire calendar
         public static List<UserControlEvent> allEvents = new List<UserControlEvent>();
 
         public static int yearNum { get; private set; }
@@ -26,7 +35,11 @@ namespace AutoSchedule
         
         public static Year year { get; private set; }
 
+        //Store the currently selected day
         public static UserControlDay activeDay;
+
+        //Load schedule view
+        ScheduleForm scheduleForm;
 
         public Form1()
         {
@@ -35,65 +48,100 @@ namespace AutoSchedule
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //Set up tool tips
+            ttAddEvent.SetToolTip(btnAddEvent, "Add Event");
+            ttDailyView.SetToolTip(btnDailyView, "Daily View");
+
+            //Assign current month and year ints
             monthNum = DateTime.Now.Month;
             yearNum = DateTime.Now.Year;
 
             //Clear events if form is being loaded again (from schedule view)
             allEvents.Clear();
 
+            //Read in all the events
             ReadEvents();
 
+            //Instantiate year from current year
             year = new Year(yearNum);
 
             //Set active day to the current day
             activeDay = year.GetMonth(monthNum).GetDay(DateTime.Now.Day);
 
-            DisplayDates();
+            //Display all the days and their info
+            DisplayDays();
 
-            ttAddEvent.SetToolTip(btnAddEvent, "Add Event");
-            ttDailyView.SetToolTip(btnDailyView, "Daily View");
+            //Load the schedule form behind the scenes
+            scheduleForm = new ScheduleForm(activeDay, monthNum, yearNum, this);
         }
 
+        //Pre: None
+        //Post: None
+        //Desc: Read in the events file and store the events
         private void ReadEvents()
         {
             try
             {
+                //Store the data that is read in
                 string line;
                 string[] data;
 
                 inFile = File.OpenText(EVENT_FILE);
 
+                //Keep count of the number of event read errors
                 int numErrors = 0;
+
+                //Loop until the end of the file is reached
                 while (!inFile.EndOfStream)
                 {
+                    //Store the line's information
                     line = inFile.ReadLine();
                     data = line.Split(',');
 
                     try
                     {
+                        //Convert and store each part of the line as the appropriate parameter used to add a new event
                         DateTime date = Convert.ToDateTime(data[0]);
                         TimeSpan timeStart = TimeSpan.Parse(data[1]);
                         TimeSpan timeEnd = TimeSpan.Parse(data[2]);
                         string eventName = data[3];
 
+                        //Add the event to the main event list
                         allEvents.Add(new UserControlEvent(date, timeStart, timeEnd, eventName));
                     }
                     catch
                     {
+                        //Increase error num if there's an issue reading in an event
                         numErrors++;
                     }
                 }
                 if (numErrors > 0)
                 {
-                    MessageBox.Show("Unable to load " + numErrors + " event(s)", "Failed Event Load", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (MessageBox.Show("Unable to load " + numErrors + " event(s) \nWould you like to resolve this issue?", "Failed Event Load", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    {
+                        if (MessageBox.Show("This will remove the events that couldn't be loaded. \nAre you sure?", "Remove Failed Events", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                        {
+                            //Set a variable to true
+                            //Check for this variable after all events have been read and saved
+                            //Rewrite the entire list to file
+                        }
+                    }
+                    else
+                    {
+                        // user clicked no
+                    }
+                    //Display message box warning users that some events couldn't be read/loaded
+                    //MessageBox.Show("Unable to load " + numErrors + " event(s)", "Failed Event Load", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 }
             }
             catch(FileLoadException fle)
             {
+                //Display error message box
                 MessageBox.Show(fle.Message, "File Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch(Exception e)
             {
+                //Display error message box
                 MessageBox.Show(e.Message, "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -101,66 +149,92 @@ namespace AutoSchedule
                 //Check if file was previously accessed
                 if (inFile != null)
                 {
+                    //Close file
                     inFile.Close();
                 }
             }
 
+            //Sort all the events
             allEvents = MergeSort(allEvents);
         }
-
+        
+        //Pre: List of events
+        //Post: sorted list of events
+        //Desc: Sort the list of events through left and ride side components
         private List<UserControlEvent> MergeSort(List<UserControlEvent> events)
         {
+            //Check if list is already sorted (1 or less events)
             if (events.Count <= 1)
             {
                 return events;
             }
 
+            //Store left and right sides of the list
             List<UserControlEvent> left = new List<UserControlEvent>();
             List<UserControlEvent> right = new List<UserControlEvent>();
 
+            //Store the middle index of the list
             int middle = events.Count / 2;
 
+            //Loop through the original list until the middle idnex
             for (int i = 0; i < middle; i++)
             {
+                //Add to the left side list
                 left.Add(events[i]);
             }
+
+            //Loop through the original list from the middle index to the last index
             for (int i = middle; i < events.Count; i++)
             {
+                //Add to the right side list
                 right.Add(events[i]);
             }
 
+            //Break up left and right side lists
             left = MergeSort(left);
             right = MergeSort(right);
+
+            //Sort left and right side lists
             return Merge(left, right);
         }
 
+        //Pre: two lists of events (left and right)
+        //Post: sorted list of events
+        //Desc: Sort list of events by date and start time
         private List<UserControlEvent> Merge(List<UserControlEvent> left, List<UserControlEvent> right)
         {
+            //Store sorted list
             List<UserControlEvent> result = new List<UserControlEvent>();
 
+            //Loop while either the left list or right list have more than one object (event)
             while (left.Count > 0 || right.Count > 0)
             {
+                //Check if both left and right lists have more than one element
                 if (left.Count > 0 && right.Count > 0)
                 {
-                    //if (left[0].GetDate() <= right[0].GetDate())
+                    //Check if the left list event has a lower value than the right list event (lower value means either lower date, or same date and lower time)
                     if (left[0].GetDate() < right[0].GetDate() || (left[0].GetDate() == right[0].GetDate() && left[0].GetTimeStart() < right[0].GetTimeStart()))
                     {
+                        //Add to the sorted list and remove from left list
                         result.Add(left[0]);
                         left.Remove(left[0]);
                     }
                     else
                     {
+                        //Add to the sorted list and remove from right list
                         result.Add(right[0]);
                         right.Remove(right[0]);
                     }
                 }
                 else if (left.Count > 0)
                 {
+                    //Add to the sorted list and remove from left list
                     result.Add(left[0]);
                     left.Remove(left[0]);
                 }
                 else if (right.Count > 0)
                 {
+                    //Add to the sorted list and remove from right list
                     result.Add(right[0]);
                     right.Remove(right[0]);
                 }
@@ -168,29 +242,93 @@ namespace AutoSchedule
             return result;
         }
 
+        //Pre: List of events to be sorted, event to be added
+        //Post: None
+        //Desc: Insert the event into the appropriate spot in a list
+        public static void InsertionSort(List<UserControlEvent> eventList, UserControlEvent addedEvent)
+        {
+            //Add the event to the end of the list
+            eventList.Add(addedEvent);
+
+            //Check if the list isn't sorted (greater than one)
+            if (eventList.Count > 1)
+            {
+                //Loop through the list starting from index 1 (index 0 is already sorted)
+                for (int i = 1; i < eventList.Count; i++)
+                {
+                    int j = i;
+
+                    //Loop from the right side of the list to the left and while event isn't sorted 
+                    while (j > 0 && eventList[j].GetDateAndTimeStart() < eventList[j - 1].GetDateAndTimeStart())
+                    {
+                        //Store event as temp
+                        UserControlEvent temp = eventList[j];
+
+                        //Swap events
+                        eventList[j] = eventList[j - 1];
+                        eventList[j - 1] = temp;
+
+                        j--;
+                    }
+                }
+            }
+        }
+
+        //Pre: Event to add
+        //Post: None
+        //Desc: Add an event to the corresponding day
         public static void AddEvent(UserControlEvent newEvent)
         {
+            //Get the day to add the event to 
             UserControlDay day = year.GetMonth(newEvent.GetDate().Month).GetDay(newEvent.GetDate().Day);
 
-            day.InsertionSort(allEvents, newEvent);
+            //Insert sort the event into the main event list, and add it to the day's list
+            InsertionSort(allEvents, newEvent);
             day.AddEvent(newEvent);
         }
 
+        //Pre: Event to delete
+        //Post: None
+        //Desc: Delete the event from the calendar
         public static void DeleteEvent(UserControlEvent deleteEvent)
         {
+            //Get the day to remove the event from
             UserControlDay day = year.GetMonth(deleteEvent.GetDate().Month).GetDay(deleteEvent.GetDate().Day);
 
+            //Delete event from the day
             day.DeleteEvent(deleteEvent);
+
+            //Delete the event from the main list
             allEvents.RemoveAt(day.SearchEvent(allEvents, deleteEvent));
         }
 
-        private void DisplayDates()
+        //Pre: None
+        //Post: None
+        //Desc: Display all the days and their corresponding info
+        private void DisplayDays()
         {
+            //Clear the flowlayout panel
             flpDays.Controls.Clear();
 
-            flpDays.Controls.AddRange(year.GetMonth(monthNum).GetControls()); //TODO: doesn't preload as expected, unless already been loaded before
+            //Add all the days to the flowlayout panel
+            flpDays.Controls.AddRange(year.GetMonth(monthNum).GetDayControls()); //TODO: doesn't preload as expected, unless already been loaded before
 
+            //Update label showing the current month and year
             lblMonthYear.Text = year.GetMonth(monthNum).GetMonthName() + " " + yearNum;
+        }
+
+        //Pre: None
+        //Post: None
+        //Desc: Display the event add form
+        private void ShowEventForm()
+        {
+            //Check if there is an active day
+            if (activeDay != null)
+            {
+                //Display event add form as a dialog
+                EventForm eventForm = new EventForm(new DateTime(yearNum, monthNum, activeDay.GetDayNum()));
+                eventForm.ShowDialog();
+            }
         }
 
         private void btnNextMonth_Click(object sender, EventArgs e)
@@ -201,13 +339,17 @@ namespace AutoSchedule
             //check if year needs to be incrimented too 
             if (monthNum + 1 > Year.MONTHS_IN_YEAR)
             {
+                //Update year and reset month
                 yearNum++;
                 monthNum = 0;
                 year = new Year(yearNum);
             }
 
+            //Increment month
             monthNum++;
-            DisplayDates();
+
+            //Refresh and display days
+            DisplayDays();
         }
 
         private void btnPrevMonth_Click(object sender, EventArgs e)
@@ -218,61 +360,41 @@ namespace AutoSchedule
             //check if year needs to be decreased too 
             if (monthNum - 1 < 1)
             {
+                //Update year and reset month
                 yearNum--;
                 monthNum = Year.MONTHS_IN_YEAR + 1;
                 year = new Year(yearNum);
             }
 
+            //Decrement month
             monthNum--;
-            DisplayDates();
+
+            //Refresh and display days
+            DisplayDays();
         }
-
-        private void ShowEventForm()
-        {
-            try
-            {
-                //Sometimes crashes
-                if (activeDay != null)
-                {
-                    EventForm eventForm = new EventForm(new DateTime(yearNum, monthNum, activeDay.GetDayNum()));
-                    eventForm.ShowDialog();
-                }
-            }
-            catch
-            {
-
-            }
-        }
-
-        //TODO: REMOVE
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-        }
-        //
 
         private void btnAddEvent_Click(object sender, EventArgs e)
         {
+            //Show the event form
             ShowEventForm();
         }
 
         private void btnDailyView_Click(object sender, EventArgs e)
         {
-            Form form = new ScheduleForm(activeDay, monthNum, yearNum);
-            form.Location = Location;
-            form.StartPosition = FormStartPosition.Manual;
-            form.FormClosing += delegate { Close(); };
-            form.Show();
-            Hide();
+            //Create the new schedule form
+            //Form form = new ScheduleForm(activeDay, monthNum, yearNum);
+
+            scheduleForm.SetDay(activeDay);
+            scheduleForm.SetMonth(monthNum);
+            scheduleForm.SetYear(yearNum);
+
+            scheduleForm.ReloadSchedule();
+
+            //Set the schedule form's position to be the same
+            scheduleForm.Location = Location;
+            scheduleForm.StartPosition = FormStartPosition.Manual;
+            scheduleForm.Visible = true;
+            Visible = false;
         }
     }
 }

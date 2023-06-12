@@ -42,17 +42,26 @@ namespace AutoSchedule
 
         //store day
         UserControlDay day;
+
+        //Store year and month ints
         int curMonth;
         private int curYear;
+
+        //Store parent form
+        Form parentForm;
 
         public ScheduleForm()
         {
             InitializeComponent();
         }
 
-        public ScheduleForm(UserControlDay day, int curMonth, int curYear)
+        public ScheduleForm(UserControlDay day, int curMonth, int curYear, Form parentForm)
         {
             InitializeComponent();
+
+            Visible = false;
+
+            this.parentForm = parentForm;
 
             this.day = day;
             this.curMonth = curMonth;
@@ -67,6 +76,35 @@ namespace AutoSchedule
             SetDateLabel();
 
             InstantiateRowTracker();
+
+            //
+            ttCalView.SetToolTip(btnCalView, "Calendar View");
+
+            dgvDay.CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical;
+
+            numRows = DAY_HOURS * MINUTES_IN_HOUR / MINUTE_INTERVAL;
+            LoadRows();
+            SetCurTimeCell();
+
+            CalcEventRowTimes();
+
+            LayoutEventBlocks();
+            //
+        }
+
+        public void SetDay(UserControlDay day)
+        {
+            this.day = day;
+        }
+
+        public void SetMonth (int month)
+        {
+            curMonth = month;
+        }
+
+        public void SetYear (int year)
+        {
+            curYear = year;
         }
 
         private void InstantiateRowTracker()
@@ -79,19 +117,23 @@ namespace AutoSchedule
             }
         }
 
+        //REMOVE
         private void ScheduleForm_Load(object sender, EventArgs e)
-        {
+        {   
+            /*
             ttCalView.SetToolTip(btnCalView, "Calendar View");
 
             dgvDay.CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical;
 
             numRows = DAY_HOURS * MINUTES_IN_HOUR / MINUTE_INTERVAL;
+            
             LoadRows();
             SetCurTimeCell();
 
             CalcEventRowTimes();
 
             LayoutEventBlocks();
+            */
         }
 
         private void SetCurTimeCell()
@@ -193,7 +235,7 @@ namespace AutoSchedule
             }
         }
 
-        private void ReloadSchedule()
+        public void ReloadSchedule()
         {
             SetDateLabel();
             events = day.GetEvents();
@@ -298,12 +340,16 @@ namespace AutoSchedule
 
         private void btnCalView_Click(object sender, EventArgs e)
         {
-            Form form = new Form1();
-            form.Location = Location;
-            form.StartPosition = FormStartPosition.Manual;
-            form.FormClosing += delegate { Close(); };
-            form.Show();
-            Hide();
+            parentForm.Location = Location;
+            parentForm.StartPosition = FormStartPosition.Manual;
+            parentForm.Visible = true;
+            Visible = false;
+            //Form form = new Form1();
+            //form.Location = Location;
+            //form.StartPosition = FormStartPosition.Manual;
+            ////form.FormClosing += delegate { Close(); };
+            //form.Show();
+            //Hide();
         }
     }
 }
