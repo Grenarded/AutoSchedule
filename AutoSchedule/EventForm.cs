@@ -95,7 +95,6 @@ namespace AutoSchedule
             }
         }
 
-        //TODO: method can be called a lot less
         private TimeSpan RoundTime(DateTimePicker timePicker)
         {
             return new TimeSpan(timePicker.Value.TimeOfDay.Hours, timePicker.Value.TimeOfDay.Minutes, 0);

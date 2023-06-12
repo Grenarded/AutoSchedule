@@ -26,6 +26,7 @@ namespace AutoSchedule
         public const string EVENT_FILE = "Events.txt";
 
         private StreamReader inFile;
+        private StreamWriter outFile;
 
         //Store all the events throughout the entire calendar
         public static List<UserControlEvent> allEvents = new List<UserControlEvent>();
@@ -72,7 +73,29 @@ namespace AutoSchedule
             DisplayDays();
 
             //Load the schedule form behind the scenes
+            LoadScheduleForm();
+        }
+
+        //Pre: None
+        //Post: None
+        //Desc: Instantiate and open the schedule form for more seamless user access
+        private void LoadScheduleForm()
+        {
+            //Instantiate schedule form
             scheduleForm = new ScheduleForm(activeDay, monthNum, yearNum, this);
+
+            //Store original form size
+            Size originalSize = scheduleForm.Size;
+
+            //Decrease size so user doesn't see form
+            scheduleForm.Size = new Size(0, 0);
+
+            //Make the form visible and invisible so user doesn't see it
+            scheduleForm.Visible = true;
+            scheduleForm.Visible = false;
+
+            //Resize form back to original size
+            scheduleForm.Size = originalSize;
         }
 
         //Pre: None
@@ -80,6 +103,7 @@ namespace AutoSchedule
         //Desc: Read in the events file and store the events
         private void ReadEvents()
         {
+            bool removeErrors = false;
             try
             {
                 //Store the data that is read in
@@ -119,8 +143,9 @@ namespace AutoSchedule
                 {
                     if (MessageBox.Show("Unable to load " + numErrors + " event(s) \nWould you like to resolve this issue?", "Failed Event Load", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
-                        if (MessageBox.Show("This will remove the events that couldn't be loaded. \nAre you sure?", "Remove Failed Events", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                        if (MessageBox.Show("This will remove the events that couldn't be loaded and their associated data. \nAre you sure?", "Remove Failed Events", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                         {
+                            removeErrors = true;
                             //Set a variable to true
                             //Check for this variable after all events have been read and saved
                             //Rewrite the entire list to file
@@ -154,8 +179,54 @@ namespace AutoSchedule
                 }
             }
 
+            //Check if user chose to remove file read errors
+            if (removeErrors)
+            {
+                ExportEvents();
+            }
+
             //Sort all the events
             allEvents = MergeSort(allEvents);
+        }
+
+        //Pre: None
+        //Post: None
+        //Desc: Overrwrite events file with the event list that took in only the acceptable events 
+        private void ExportEvents()
+        {
+            try
+            {
+                outFile = File.CreateText(EVENT_FILE);
+
+                //Loop through all the events
+                for (int i = 0; i < allEvents.Count; i++)
+                {
+                    //Get only the date portion of the event date (not the associated time)
+                    string dateOnly = Convert.ToString(allEvents[i].GetDate()).Split(' ')[0];
+
+                    //Write out event along with all its information to file
+                    outFile.WriteLine(dateOnly + "," + allEvents[i].GetTimeStart() + "," + allEvents[i].GetTimeEnd() + "," + allEvents[i].GetEventName());
+                }
+            }
+            catch (FileNotFoundException fnf)
+            {
+                //Display error message box
+                MessageBox.Show(fnf.Message, "Event Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception e)
+            {
+                //Display error message box
+                MessageBox.Show(e.Message, "Event Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                //Check if file was previously accessed
+                if (outFile != null)
+                {
+                    //Close the file
+                    outFile.Close();
+                }
+            }
         }
         
         //Pre: List of events
@@ -381,9 +452,7 @@ namespace AutoSchedule
 
         private void btnDailyView_Click(object sender, EventArgs e)
         {
-            //Create the new schedule form
-            //Form form = new ScheduleForm(activeDay, monthNum, yearNum);
-
+            //Update schedule form 
             scheduleForm.SetDay(activeDay);
             scheduleForm.SetMonth(monthNum);
             scheduleForm.SetYear(yearNum);
@@ -393,6 +462,8 @@ namespace AutoSchedule
             //Set the schedule form's position to be the same
             scheduleForm.Location = Location;
             scheduleForm.StartPosition = FormStartPosition.Manual;
+
+            //Make schedule form visible and this one invisible
             scheduleForm.Visible = true;
             Visible = false;
         }
